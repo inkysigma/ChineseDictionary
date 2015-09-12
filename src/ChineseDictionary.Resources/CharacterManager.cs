@@ -82,5 +82,24 @@ namespace ChineseDictionary.Resources
             await Save();
             return true;
         }
+
+        public async Task<bool> RemoveCharacterAsync(string character)
+        {
+            if (string.IsNullOrEmpty(character))
+                return false;
+            var c = await FindCharacterAsync(character);
+            if (c == null)
+                return false;
+            return await RemoveCharacterAsync(c);
+        }
+
+        public async Task<bool> RemoveCharacterAsync(Character character)
+        {
+            if (character == null)
+                return false;
+            Context.Characters.Remove(character);
+            await Save();
+            return true;
+        }
     }
 }
