@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using ChineseDictionary.Resources.Models;
 using System.Data.Entity;
 using System.Linq;
@@ -106,5 +107,15 @@ namespace ChineseDictionary.Resources
             await Save();
             return true;
         }
+
+        public IEnumerable<Character> GetCharactersAsync()
+        {
+            return Context.Characters.Where(c => true);
+        }
+
+        public IEnumerable<Character> GetCharacterRangeAsync(int beginning, int range)
+        {
+            return Context.Characters.OrderBy(c => c.Number).Skip(beginning).Take(range);
+        } 
     }
 }

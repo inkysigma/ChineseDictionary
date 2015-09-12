@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace ChineseDictionary.Resources.Models
 {
     public class Character
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Number { get; set; }
+
         [Key]
         public string Logograph { get; set; }
 
