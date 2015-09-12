@@ -1,46 +1,57 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using ChineseDictionary.Resources.Models;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
+using ChineseDictionary.Resources.Models;
 
-namespace ChineseDictionary.Resources
+namespace ChineseDictionary.Resources.Managers
 {
-    public class CharacterManager
+    public class IdiomManager
     {
+        public CharacterManager Manager { get; set; }
         public DictionaryContext Context { get; set; }
 
-        public CharacterManager(DictionaryContext context)
+        public IdiomManager(CharacterManager manager)
         {
-            Context = context;
+            Manager = manager;
+            Context = manager.Context;
         }
 
-        private async Task Save()
+        public async Task Save()
         {
             await Context.SaveChangesAsync();
         }
 
-        public async Task<bool> AddCharacterAsync(Character character)
+        public async Task<bool> AddIdiomAsync(Idiom idiom)
         {
-            if (!character.Validate() && !await Context.Characters.ContainsAsync(character))
+            if (!idiom.Validate() && !await Context.Idioms.ContainsAsync(idiom))
                 return false;
-            Context.Characters.Add(character);
+            Context.Idioms.Add(idiom);
+            bool buildPronounciation = string.IsNullOrEmpty(idiom.Pronounciation);
+            foreach (char i in idiom.Word)
+            {
+                Character c = await Manager.FindCharacterAsync(i.ToString());
+                idiom.Characters.Add(c);
+                c.Idioms.Add(idiom);
+                if (buildPronounciation)
+                    idiom.Pronounciation += c.Pronounciation;
+            }
             await Save();
             return true;
         }
 
-        public async Task<Character> FindCharacterAsync(string character)
+        public async Task<Idiom> FindIdiomAsync(string idiom)
         {
-            if (string.IsNullOrEmpty(character))
+            if (string.IsNullOrEmpty(idiom))
                 return null;
-            return await Context.Characters.Where(c => c.Logograph == character).FirstOrDefaultAsync();
+            return await Context.Idioms.Where(c => c.Word.StartsWith(idiom)).FirstOrDefaultAsync();
         }
 
         public async Task<bool> UpdatePronounciationAsync(string character, string pronouncition)
         {
             if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(pronouncition))
                 return false;
-            var c = await FindCharacterAsync(character);
+            var c = await FindIdiomAsync(character);
             if (c == null)
                 return false;
             c.Pronounciation = pronouncition;
@@ -52,7 +63,7 @@ namespace ChineseDictionary.Resources
         {
             if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(definition))
                 return false;
-            var c = await FindCharacterAsync(character);
+            var c = await FindIdiomAsync(character);
             if (c == null)
                 return false;
             c.Definition.Add(definition);
@@ -64,7 +75,7 @@ namespace ChineseDictionary.Resources
         {
             if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(usage))
                 return false;
-            var c = await FindCharacterAsync(character);
+            var c = await FindIdiomAsync(character);
             if (c == null)
                 return false;
             c.Usages.Add(usage);
@@ -76,7 +87,7 @@ namespace ChineseDictionary.Resources
         {
             if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(definition))
                 return false;
-            var c = await FindCharacterAsync(character);
+            var c = await FindIdiomAsync(character);
             if (c == null)
                 return false;
             c.Definition.Remove(definition);
@@ -88,7 +99,7 @@ namespace ChineseDictionary.Resources
         {
             if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(usage))
                 return false;
-            var c = await FindCharacterAsync(character);
+            var c = await FindIdiomAsync(character);
             if (c == null)
                 return false;
             c.Usages.Remove(usage);
@@ -100,7 +111,7 @@ namespace ChineseDictionary.Resources
         {
             if (string.IsNullOrEmpty(character))
                 return false;
-            var c = await FindCharacterAsync(character);
+            var c = await FindIdiomAsync(character);
             if (c == null)
                 return false;
             Context.Characters.Remove(c);
@@ -108,14 +119,14 @@ namespace ChineseDictionary.Resources
             return true;
         }
 
-        public IEnumerable<Character> GetCharactersAsync()
+        public IEnumerable<Idiom> GetCharactersAsync()
         {
-            return Context.Characters.Where(c => true);
+            return Context.Idioms.Where(c => true);
         }
 
-        public IEnumerable<Character> GetCharacterRangeAsync(int beginning, int range)
+        public IEnumerable<Idiom> GetCharacterRangeAsync(int beginning, int range)
         {
-            return Context.Characters.OrderBy(c => c.Number).Skip(beginning).Take(range);
-        } 
+            return Context.Idioms.OrderBy(c => c.Number).Skip(beginning).Take(range);
+        }
     }
 }

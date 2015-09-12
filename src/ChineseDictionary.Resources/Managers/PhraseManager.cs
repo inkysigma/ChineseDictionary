@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using ChineseDictionary.Resources.Models;
-using System.Data.Entity;
 
-namespace ChineseDictionary.Resources
+namespace ChineseDictionary.Resources.Managers
 {
     public class PhraseManager
     {
