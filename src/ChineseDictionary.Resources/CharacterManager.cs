@@ -39,6 +39,12 @@ namespace ChineseDictionary.Resources
         {
             if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(pronouncition))
                 return false;
+            var c = await FindCharacterAsync(character);
+            if (c == null)
+                return false;
+            c.Pronounciation = pronouncition;
+            await Save();
+            return true;
         }
 
         public async Task<bool> UpdateDefinitionAsync(string character, string definition)
