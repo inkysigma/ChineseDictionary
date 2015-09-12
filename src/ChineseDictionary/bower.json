@@ -1,0 +1,6 @@
+{
+  "name": "ChineseDictionary",
+  "dependencies": {
+    "angular": "1.4.5"
+  }
+}
