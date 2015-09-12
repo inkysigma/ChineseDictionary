@@ -35,6 +35,12 @@ namespace ChineseDictionary.Resources
             return await Context.Characters.Where(c => c.Logograph == character).FirstOrDefaultAsync();
         }
 
+        public async Task<bool> UpdatePronounciationAsync(string character, string pronouncition)
+        {
+            if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(pronouncition))
+                return false;
+        }
+
         public async Task<bool> UpdateDefinitionAsync(string character, string definition)
         {
             if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(definition))
@@ -90,14 +96,7 @@ namespace ChineseDictionary.Resources
             var c = await FindCharacterAsync(character);
             if (c == null)
                 return false;
-            return await RemoveCharacterAsync(c);
-        }
-
-        public async Task<bool> RemoveCharacterAsync(Character character)
-        {
-            if (character == null)
-                return false;
-            Context.Characters.Remove(character);
+            Context.Characters.Remove(c);
             await Save();
             return true;
         }
