@@ -5,9 +5,11 @@
 
     app.controller("AddCharacterController", function($scope, $http) {
         $scope.character = "";
-        $scope.partOfSpeech = "";
         $scope.pronunciation = "";
-        $scope.definitions = [""];
+        $scope.definitions = [
+        {
+            "":""
+        }];
         $scope.usages = [""];
         $scope.result = "";
         $scope.submit = function (isValid) {
@@ -19,7 +21,6 @@
             {
                 Logograph: $scope.character,
                 Definitions: $scope.definitions,
-                PartOfSpeech: $scope.partOfSpeech,
                 Pronunciation: $scope.pronunciation,
                 Usages: $scope.usages
             }).then(function(response) {

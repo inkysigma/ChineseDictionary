@@ -13,12 +13,6 @@
             <input type="text" id="pronunciation" class="form-control" ng-model="pronunciation" required/>
         </div>
     </div>
-    <div class="form-group">
-        <label for="partOfSpeech" class="control-label col-sm-2">Part Of Speech:</label>
-        <div class="col-sm-5">
-            <input type="text" id="partOfSpeech" class="form-control" ng-model="partOfSpeech" required/>
-        </div>
-    </div>
     <div ng-repeat="definition in definitions track by $index">
         <div class="form-group">
             <label for="definitions" class="control-label col-sm-2" ng-show="$index == 0">Definition</label>
@@ -39,10 +33,14 @@
     </div>
     <div ng-repeat="usage in usages track by $index">
         <div class="form-group">
+            <label for="partOfSpeech" class="control-label col-sm-2">Part Of Speech:</label>
+            <div class="col-sm-4">
+                <input type="text" id="partOfSpeech" class="form-control" ng-model="partOfSpeech" required />
+            </div>
             <label for="usage" class="control-label col-sm-2" ng-show="$index == 0">Usage</label>
-            <p class="col-sm-2" ng-show="$index != 0"></p>
-            <div class="col-sm-5">
-                <input id="usage" type="text" class="form-control" ng-model="$parent.usages[$index]" required/>
+            <div class="col-sm-2" ng-show="$index != 0"></div>
+            <div class="col-sm-4">
+                <input id="usage" type="text" class="form-control" ng-model="$parent.usages[$index]" required />
             </div>
         </div>
     </div>

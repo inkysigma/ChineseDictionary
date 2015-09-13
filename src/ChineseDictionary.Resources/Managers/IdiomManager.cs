@@ -58,7 +58,7 @@ namespace ChineseDictionary.Resources.Managers
         {
             if (string.IsNullOrEmpty(definition))
                 return new Idiom[0];
-            return await Context.Idioms.Where(c => c.Definition.Contains(definition)).ToArrayAsync();
+            return await Context.Idioms.Where(c => c.Definitions.Any(x=> x.Key == definition)).ToArrayAsync();
         }
 
         public async Task<bool> UpdatePronunciationAsync(string idiom, string pronouncition)
@@ -73,26 +73,14 @@ namespace ChineseDictionary.Resources.Managers
             return true;
         }
 
-        public async Task<bool> UpdatePartOfSpeechAsync(string idiom, string partOfSpeech)
+        public async Task<bool> UpdateDefinitionAsync(string idiom, KeyValuePair<string, string> definition)
         {
-            if (string.IsNullOrEmpty(idiom) || string.IsNullOrEmpty(partOfSpeech))
-                return false;
-            var firstOrDefault = await FindIdiomAsync(idiom);
-            if (firstOrDefault == null)
-                return false;
-            firstOrDefault.PartOfSpeech = partOfSpeech;
-            await Save();
-            return true;
-        }
-
-        public async Task<bool> UpdateDefinitionAsync(string idiom, string definition)
-        {
-            if (string.IsNullOrEmpty(idiom) || string.IsNullOrEmpty(definition))
+            if (string.IsNullOrEmpty(idiom) || string.IsNullOrEmpty(definition.Value) || string.IsNullOrEmpty(definition.Key))
                 return false;
             var c = await FindIdiomAsync(idiom);
             if (c == null)
                 return false;
-            c.Definition.Add(definition);
+            c.Definitions.Add(definition);
             await Save();
             return true;
         }
@@ -128,7 +116,7 @@ namespace ChineseDictionary.Resources.Managers
             var c = await FindIdiomAsync(idiom);
             if (c == null)
                 return false;
-            c.Definition.Remove(definition);
+            c.Definitions.Remove(definition);
             await Save();
             return true;
         }

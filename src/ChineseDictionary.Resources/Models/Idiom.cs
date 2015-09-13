@@ -10,8 +10,6 @@ namespace ChineseDictionary.Resources.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Number { get; set; }
 
-        public string PartOfSpeech { get; set; }
-
         public string Pronunciation { get; set; }
 
         [Key]
@@ -19,7 +17,7 @@ namespace ChineseDictionary.Resources.Models
 
         public string Story { get; set; }
 
-        public IList<string> Definition { get; set; }
+        public IDictionary<string, string> Definitions { get; set; }
 
         public IList<string> Usages { get; set; }
 
@@ -27,7 +25,7 @@ namespace ChineseDictionary.Resources.Models
 
         public bool Validate()
         {
-            return string.IsNullOrEmpty(Pronunciation) && string.IsNullOrEmpty(Word) && Definition.Any();
+            return string.IsNullOrEmpty(Pronunciation) && string.IsNullOrEmpty(Word) && Definitions.Any();
         }
     }
 }

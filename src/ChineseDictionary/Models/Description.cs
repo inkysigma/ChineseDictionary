@@ -39,7 +39,7 @@ namespace ChineseDictionary.Models
 
         public static Description Create(Idiom idiom)
         {
-            return new Description(idiom.Word, idiom.PartOfSpeech, idiom.Definition, idiom.Usages)
+            return new Description(idiom.Word, idiom.PartOfSpeech, idiom.Definitions, idiom.Usages)
             {
                 Type = "Idiom"
             };
