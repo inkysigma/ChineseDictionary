@@ -48,9 +48,14 @@ namespace ChineseDictionary.Controllers
             return list;
         }
 
-        public async Task<IEnumerable<Description>> GetRandom()
+        public async Task<Description> GetRandom()
         {
-            
+            var random = new Random();
+            var type = random.Next(0, 3);
+            if (type == 1)
+                return Description.Create(await _idiomManager.GetIdiom(random.Next(0, await _idiomManager.CountAsync())));
+            if (type == 2)
+                return Description.Create(await _phraseManager.GetPhrase)
         }
     }
 }
