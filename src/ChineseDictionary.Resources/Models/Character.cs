@@ -29,5 +29,15 @@ namespace ChineseDictionary.Resources.Models
         {
             return !string.IsNullOrEmpty(Pronunciation) && !string.IsNullOrEmpty(Logograph) && Definition.Any() && !string.IsNullOrEmpty(PartOfSpeech);
         }
+
+        public static bool operator ==(Character init, string character)
+        {
+            return init != null && init.Logograph == character;
+        }
+
+        public static bool operator !=(Character init, string character)
+        {
+            return !(init == character);
+        }
     }
 }

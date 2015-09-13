@@ -1,11 +1,18 @@
 ﻿
 "use strict";
 
+var SearchType = {
+    Definition: 0,
+    Word: 1
+}
+
 var app = angular.module("DictionaryModule", []);
 
 app.controller("ListController",
     function($scope, $http) {
         $scope.descriptions = [];
+        $scope.search = "";
+        $scope.searchBy = 
         $http.post("api/Dictionary/GetRandomRange")
             .then(function (response) {
                 if (response.data.length === 0) {

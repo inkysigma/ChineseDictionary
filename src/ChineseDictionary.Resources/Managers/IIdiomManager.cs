@@ -8,6 +8,7 @@ namespace ChineseDictionary.Resources.Managers
     {
         Task<bool> AddIdiomAsync(Idiom idiom);
         Task<Idiom> FindIdiomAsync(string idiom);
+        Task<IEnumerable<Idiom>> FindIdiomsByCharacterAsync(string character);
         Task<IEnumerable<Idiom>> FindIdiomsByDefinitionAsync(string definition);
         Task<bool> UpdatePronunciationAsync(string idiom, string pronouncition);
         Task<bool> UpdatePartOfSpeechAsync(string idiom, string partOfSpeech);

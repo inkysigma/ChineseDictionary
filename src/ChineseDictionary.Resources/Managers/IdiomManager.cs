@@ -47,6 +47,13 @@ namespace ChineseDictionary.Resources.Managers
             return await Context.Idioms.Where(c => c.Word.StartsWith(idiom)).FirstOrDefaultAsync();
         }
 
+        public async Task<IEnumerable<Idiom>> FindIdiomsByCharacterAsync(string character)
+        {
+            if (string.IsNullOrEmpty(character))
+                return null;
+            return await Context.Idioms.Where(c => c.Characters.Any(x => x == character)).ToArrayAsync();
+        }
+
         public async Task<IEnumerable<Idiom>> FindIdiomsByDefinitionAsync(string definition)
         {
             if (string.IsNullOrEmpty(definition))
