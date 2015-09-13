@@ -13,11 +13,9 @@ namespace ChineseDictionary.Resources.Models
         [Key]
         public string Logograph { get; set; }
 
-        public string PartOfSpeech { get; set; }
-
         public string Pronunciation { get; set; }
 
-        public IList<string> Definitions { get; set; }
+        public IDictionary<string, string> Definitions { get; set; }
 
         public IList<string> Usages { get; set; }
         
@@ -27,7 +25,7 @@ namespace ChineseDictionary.Resources.Models
 
         public bool Validate()
         {
-            return !string.IsNullOrEmpty(Pronunciation) && !string.IsNullOrEmpty(Logograph) && Definitions.Any() && !string.IsNullOrEmpty(PartOfSpeech);
+            return !string.IsNullOrEmpty(Pronunciation) && !string.IsNullOrEmpty(Logograph) && Definitions.Any()
         }
 
         public static bool operator ==(Character init, string character)

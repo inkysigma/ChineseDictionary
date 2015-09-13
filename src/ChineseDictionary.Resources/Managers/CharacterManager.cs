@@ -40,7 +40,7 @@ namespace ChineseDictionary.Resources.Managers
         {
             if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(definition))
                 return null;
-            return await Context.Characters.Where(c => c.Definitions.Contains(definition)).ToArrayAsync();
+            return await Context.Characters.Where(c => c.Definitions.Any(x => x.Value == definition)).ToArrayAsync();
         }
 
         public async Task<bool> UpdatePronunciationAsync(string character, string pronouncition)
@@ -55,21 +55,9 @@ namespace ChineseDictionary.Resources.Managers
             return true;
         }
 
-        public async Task<bool> UpdatePartOfSpeechAsync(string character, string partOfSpeech)
+        public async Task<bool> UpdateDefinitionAsync(string character, KeyValuePair<string, string> definition)
         {
-            if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(partOfSpeech))
-                return false;
-            var firstOrDefault = await FindCharacterAsync(character);
-            if (firstOrDefault == null)
-                return false;
-            firstOrDefault.PartOfSpeech = partOfSpeech;
-            await Save();
-            return true;
-        }
-
-        public async Task<bool> UpdateDefinitionAsync(string character, string definition)
-        {
-            if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(definition))
+            if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(definition.Value) || string.IsNullOrEmpty(definition.Key))
                 return false;
             var c = await FindCharacterAsync(character);
             if (c == null)
@@ -98,7 +86,7 @@ namespace ChineseDictionary.Resources.Managers
             var c = await FindCharacterAsync(character);
             if (c == null)
                 return false;
-            c.Definitions.Remove(definition);
+            c.Definitions.Remove(c.Definitions.FirstOrDefault(x => x.Value == definition));
             await Save();
             return true;
         }
