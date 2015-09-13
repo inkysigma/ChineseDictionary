@@ -2,6 +2,7 @@
     'use strict';
 
     var app = angular.module('characterControllers', []);
+
     app.controller("AddCharacterController", function($scope, $http) {
         $scope.character = "";
         $scope.partOfSpeech = "";
@@ -9,7 +10,11 @@
         $scope.definitions = [""];
         $scope.usages = [""];
         $scope.result = "";
-        $scope.submit = function() {
+        $scope.submit = function (isValid) {
+            if (!isValid) {
+                $scope.result = "The form has some incorrect fields.";
+                return;
+            }
             $http.post("/api/Character/AddCharacter",
             {
                 Logograph: $scope.character,
@@ -37,5 +42,13 @@
         }
         $scope.addUsage = function() {
             $scope.usages.push("");
+        }
+        $scope.removeDefinition = function() {
+            if ($scope.definitions.length !== 1)
+                $scope.definitions.pop();
+        }
+        $scope.removeUsage = function() {
+            if ($scope.usages.length !== 1)
+                $scope.definitions.pop();
         }
     });
