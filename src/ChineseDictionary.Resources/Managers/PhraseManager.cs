@@ -124,7 +124,7 @@ namespace ChineseDictionary.Resources.Managers
 
         public async Task<IEnumerable<Phrase>> GetCharacterRangeAsync(int beginning, int range)
         {
-            return await Context.Idioms.OrderBy(c => c.Number).Skip(beginning).Take(range).ToArrayAsync();
+            return await Context.Phrases.OrderBy(c => c.Number).Skip(beginning).Take(range).ToArrayAsync();
         }
     }
 }
