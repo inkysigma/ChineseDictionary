@@ -11,8 +11,7 @@ namespace ChineseDictionary.Resources.Managers
         Task<IEnumerable<Phrase>> FindPhrasesByDefinitionAsync(string phrase, string definition);
         Task<bool> AddPhraseAsync(Phrase phrase);
         Task<bool> UpdatePronunciationAsync(string phrase, string pronunciation);
-        Task<bool> UpdatePartOfSpeechAsync(string phrase, string partOfSpeech);
-        Task<bool> UpdateDefinitionAsync(string phrase, string definition);
+        Task<bool> UpdateDefinitionAsync(string phrase, KeyValuePair<string, string> definition);
         Task<bool> UpdateUsageAsync(string phrase, string usage);
         Task<bool> RemoveDefinitionAsync(string phrase, string definition);
         Task<bool> RemoveUsageAsync(string phrase, string usage);

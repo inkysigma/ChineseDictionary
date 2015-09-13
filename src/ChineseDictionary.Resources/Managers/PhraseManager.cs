@@ -40,7 +40,7 @@ namespace ChineseDictionary.Resources.Managers
         {
             if (string.IsNullOrEmpty(phrase) || string.IsNullOrEmpty(definition))
                 return null;
-            return await Context.Phrases.Where(c => c.Definition.Contains(definition)).ToArrayAsync();
+            return await Context.Phrases.Where(c => c.Definition.Any(x => x.Key == definition)).ToArrayAsync();
         }
 
         public async Task<bool> AddPhraseAsync(Phrase phrase)
@@ -70,21 +70,9 @@ namespace ChineseDictionary.Resources.Managers
             return true;
         }
 
-        public async Task<bool> UpdatePartOfSpeechAsync(string phrase, string partOfSpeech)
+        public async Task<bool> UpdateDefinitionAsync(string phrase, KeyValuePair<string, string> definition)
         {
-            if (string.IsNullOrEmpty(phrase) || string.IsNullOrEmpty(partOfSpeech))
-                return false;
-            var firstOrDefault = await FindPhraseAsync(phrase);
-            if (firstOrDefault == null)
-                return false;
-            firstOrDefault.PartOfSpeech = partOfSpeech;
-            await Save();
-            return true;
-        }
-
-        public async Task<bool> UpdateDefinitionAsync(string phrase, string definition)
-        {
-            if (string.IsNullOrEmpty(phrase) || string.IsNullOrEmpty(definition))
+            if (string.IsNullOrEmpty(phrase) || string.IsNullOrEmpty(definition.Key) || string.IsNullOrEmpty(definition.Value))
                 return false;
             var c = await FindPhraseAsync(phrase);
             if (c == null)
