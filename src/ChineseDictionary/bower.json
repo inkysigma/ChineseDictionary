@@ -1,6 +1,7 @@
 {
   "name": "ChineseDictionary",
   "dependencies": {
-    "angular": "1.4.5"
+    "angular": "1.4.5",
+    "bootstrap": "3.3.5"
   }
 }

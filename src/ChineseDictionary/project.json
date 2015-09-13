@@ -10,7 +10,7 @@
         "Microsoft.Framework.Configuration": "1.0.0-beta7",
         "Microsoft.Framework.Configuration.Json": "1.0.0-beta7",
 
-        "ChineseDictionary.Resources": "1.0.0-beta7"
+        "ChineseDictionary.Resources": "1.0.0"
     },
 
     "scripts": {
