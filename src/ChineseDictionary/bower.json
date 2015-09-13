@@ -2,6 +2,7 @@
   "name": "ChineseDictionary",
   "dependencies": {
     "angular": "1.4.5",
-    "bootstrap": "3.3.5"
+    "bootstrap": "3.3.5",
+    "knuth-shuffle": "1.0.1"
   }
 }

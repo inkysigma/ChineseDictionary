@@ -7,7 +7,10 @@
 </head>
 <body ng-controller="dictionary.ListController as list">
 <div class="list-group">
-    <div class="item list-group-item" ng-repeat=""></div>
+    <div class="item list-group-item" ng-repeat="description in description">
+        <h1 ng-bind="description.Word"></h1>
+        <p>{{descript.PartOfSpeech + " - " + description.Definition}}</p>
+    </div>
 </div>
 </body>
 </html>
