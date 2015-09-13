@@ -110,7 +110,7 @@ namespace ChineseDictionary.Resources.Managers
 
         public async Task<IEnumerable<Character>> GetCharactersAsync()
         {
-            return Context.Characters.Where(c => true).ToArrayAsync();
+            return await Context.Characters.Where(c => true).ToArrayAsync();
         }
 
         public async Task<IEnumerable<Character>> GetCharacterRangeAsync(int beginning, int range)

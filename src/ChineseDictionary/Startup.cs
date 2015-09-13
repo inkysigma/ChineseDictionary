@@ -34,6 +34,9 @@ namespace ChineseDictionary
 
             services.AddTransient<ICharacterManager, CharacterManager>();
 
+            services.AddTransient<IIdiomManager, IdiomManager>();
+
+            services.AddTransient<IPhraseManager, PhraseManager>();
         }
 
         // Configure is called after ConfigureServices is called.
