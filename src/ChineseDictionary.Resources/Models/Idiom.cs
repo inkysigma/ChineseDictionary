@@ -10,6 +10,8 @@ namespace ChineseDictionary.Resources.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Number { get; set; }
 
+        public string PartOfSpeech { get; set; }
+
         public string Pronunciation { get; set; }
 
         [Key]

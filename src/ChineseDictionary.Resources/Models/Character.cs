@@ -13,6 +13,8 @@ namespace ChineseDictionary.Resources.Models
         [Key]
         public string Logograph { get; set; }
 
+        public string PartOfSpeech { get; set; }
+
         public string Pronunciation { get; set; }
 
         public IList<string> Definition { get; set; }
@@ -25,7 +27,7 @@ namespace ChineseDictionary.Resources.Models
 
         public bool Validate()
         {
-            return string.IsNullOrEmpty(Pronunciation) && !string.IsNullOrEmpty(Logograph) && Definition.Any();
+            return !string.IsNullOrEmpty(Pronunciation) && !string.IsNullOrEmpty(Logograph) && Definition.Any() && !string.IsNullOrEmpty(PartOfSpeech);
         }
     }
 }

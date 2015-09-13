@@ -22,11 +22,16 @@ namespace ChineseDictionary.Controllers
             _idiomManager = idiomManager;
         }
 
-        public IEnumerable<string> GetRandom(int id = 20)
+        public async Task<IEnumerable<string>> GetRandom(int id = 20)
         {
             var random = new Random();
-            int chars = random.Next(0, 20);
-            _characterManager.GetCharacterRangeAsync()
+            var list = new List<string>();
+            int numChars = await _characterManager.CountAsync();
+            int chars = random.Next(numChars);
+            foreach (var i in await _characterManager.GetCharacterRangeAsync(chars - id, chars))
+            {
+                list.Add
+            }
         }
     }
 }

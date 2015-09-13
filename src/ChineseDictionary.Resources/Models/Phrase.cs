@@ -11,6 +11,8 @@ namespace ChineseDictionary.Resources.Models
 
         public string Pronunciation { get; set; }
 
+        public string PartOfSpeech { get; set; }
+
         public string Word { get; set; }
 
         public virtual IList<Character> Characters { get; set; } 
