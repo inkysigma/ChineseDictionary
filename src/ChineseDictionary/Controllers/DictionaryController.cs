@@ -59,5 +59,16 @@ namespace ChineseDictionary.Controllers
                     Description.Create(await _phraseManager.GetPhrase(random.Next(0, await _phraseManager.CountAsync())));
             return Description.Create(await _characterManager.GetCharacter(random.Next(0, await _characterManager.CountAsync())));
         }
+
+        public async Task<IEnumerable<Description>> SearchMultiple(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return null;
+            if (id.Length == 1)
+                return new Description[1] {Description.Create(await _characterManager.FindCharacterAsync(id))};
+            var descriptions = (from i in await _idiomManager.FindIdiomsByCharacterAsync(id) select Description.Create(i)).ToList();
+            descriptions.AddRange(from i in await _phraseManager.FindPhrasesByCharacterAsync(id) select Description.Create(i));
+            return descriptions;
+        }
     }
 }
