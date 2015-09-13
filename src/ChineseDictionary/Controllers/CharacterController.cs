@@ -17,15 +17,17 @@ namespace ChineseDictionary.Controllers
         }
         
         [HttpPost]
-        public async Task<bool> AddCharacter(string data)
+        public async Task<string> AddCharacter(string data)
         {
+            if (string.IsNullOrEmpty(data))
+                return "Nothing is filled in";
             var obj = JsonConvert.DeserializeObject<Character>(data);
             if (!obj.Validate())
-                return false;
+                return "The data is not valid";
             if (!obj.Usages.Any())
-                return false;
+                return "There aren't any examples";
             await _characterManager.AddCharacterAsync(obj);
-            return true;
+            return "Success";
         }
     }
 }

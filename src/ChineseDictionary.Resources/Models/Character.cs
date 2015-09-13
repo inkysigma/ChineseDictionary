@@ -25,7 +25,7 @@ namespace ChineseDictionary.Resources.Models
 
         public bool Validate()
         {
-            return !string.IsNullOrEmpty(Pronunciation) && !string.IsNullOrEmpty(Logograph) && Definitions.Any();
+            return !string.IsNullOrEmpty(Pronunciation) && !string.IsNullOrEmpty(Logograph) && Definitions.Any() && Logograph.Length == 1;
         }
 
         public static bool operator ==(Character init, string character)
