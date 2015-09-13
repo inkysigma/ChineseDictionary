@@ -14,7 +14,7 @@ namespace ChineseDictionary.Resources.Managers
         Task<bool> RemoveDefinitionAsync(string character, string definition);
         Task<bool> RemoveUsageAsync(string character, string usage);
         Task<bool> RemoveCharacterAsync(string character);
-        IEnumerable<Character> GetCharactersAsync();
-        IEnumerable<Character> GetCharacterRangeAsync(int beginning, int range);
+        Task<IEnumerable<Character>> GetCharactersAsync();
+        Task<IEnumerable<Character>> GetCharacterRangeAsync(int beginning, int range);
     }
 }

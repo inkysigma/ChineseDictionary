@@ -108,14 +108,14 @@ namespace ChineseDictionary.Resources.Managers
             return true;
         }
 
-        public IEnumerable<Character> GetCharactersAsync()
+        public async Task<IEnumerable<Character>> GetCharactersAsync()
         {
-            return Context.Characters.Where(c => true);
+            return Context.Characters.Where(c => true).ToArrayAsync();
         }
 
-        public IEnumerable<Character> GetCharacterRangeAsync(int beginning, int range)
+        public async Task<IEnumerable<Character>> GetCharacterRangeAsync(int beginning, int range)
         {
-            return Context.Characters.OrderBy(c => c.Number).Skip(beginning).Take(range);
+            return await Context.Characters.OrderBy(c => c.Number).Skip(beginning).Take(range).ToArrayAsync();
         } 
     }
 }
