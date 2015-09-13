@@ -17,7 +17,7 @@ namespace ChineseDictionary.Resources.Managers
             Context = manager.Context;
         }
 
-        public async Task Save()
+        private async Task Save()
         {
             await Context.SaveChangesAsync();
         }
@@ -126,14 +126,14 @@ namespace ChineseDictionary.Resources.Managers
             return true;
         }
 
-        public IEnumerable<Idiom> GetCharactersAsync()
+        public async Task<IEnumerable<Idiom>> GetIdiomsAsync()
         {
-            return Context.Idioms.Where(c => true);
+            return await Context.Idioms.Where(c => true).ToArrayAsync();
         }
 
-        public IEnumerable<Idiom> GetCharacterRangeAsync(int beginning, int range)
+        public async Task<IEnumerable<Idiom>> GetCharacterRangeAsync(int beginning, int range)
         {
-            return Context.Idioms.OrderBy(c => c.Number).Skip(beginning).Take(range);
+            return await Context.Idioms.OrderBy(c => c.Number).Skip(beginning).Take(range).ToArrayAsync();
         }
     }
 }

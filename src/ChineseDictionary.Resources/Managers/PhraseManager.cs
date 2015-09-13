@@ -6,7 +6,7 @@ using ChineseDictionary.Resources.Models;
 
 namespace ChineseDictionary.Resources.Managers
 {
-    public class PhraseManager
+    public class PhraseManager : IPhraseManager
     {
         public CharacterManager Manager { get; set; }
         public DictionaryContext Context { get; set; }
