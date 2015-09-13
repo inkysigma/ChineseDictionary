@@ -135,5 +135,10 @@ namespace ChineseDictionary.Resources.Managers
         {
             return await Context.Idioms.OrderBy(c => c.Number).Skip(beginning).Take(range).ToArrayAsync();
         }
+
+        public async Task<int> CountAsync()
+        {
+            return await Context.Idioms.CountAsync();
+        }
     }
 }

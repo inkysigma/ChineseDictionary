@@ -116,6 +116,11 @@ namespace ChineseDictionary.Resources.Managers
         public async Task<IEnumerable<Character>> GetCharacterRangeAsync(int beginning, int range)
         {
             return await Context.Characters.OrderBy(c => c.Number).Skip(beginning).Take(range).ToArrayAsync();
-        } 
+        }
+
+        public async Task<int> CountAsync()
+        {
+            return await Context.Characters.CountAsync();
+        }
     }
 }

@@ -16,5 +16,6 @@ namespace ChineseDictionary.Resources.Managers
         Task<bool> RemoveIdiomAsync(string phrase);
         Task<IEnumerable<Phrase>> GetCharactersAsync();
         Task<IEnumerable<Phrase>> GetCharacterRangeAsync(int beginning, int range);
+        Task<int> CountAsync();
     }
 }

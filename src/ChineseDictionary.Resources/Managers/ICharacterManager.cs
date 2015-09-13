@@ -16,5 +16,6 @@ namespace ChineseDictionary.Resources.Managers
         Task<bool> RemoveCharacterAsync(string character);
         Task<IEnumerable<Character>> GetCharactersAsync();
         Task<IEnumerable<Character>> GetCharacterRangeAsync(int beginning, int range);
+        Task<int> CountAsync();
     }
 }

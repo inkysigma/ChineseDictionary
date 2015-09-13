@@ -1,1 +1,7 @@
-﻿var app = angular.app('dictionary', []);
+﻿(function() {
+    var app = angular.module("dictionary", []);
+
+    app.controller("ListController", function($scope) {
+        
+    });
+})
