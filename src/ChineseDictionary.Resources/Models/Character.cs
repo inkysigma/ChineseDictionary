@@ -25,7 +25,7 @@ namespace ChineseDictionary.Resources.Models
 
         public bool Validate()
         {
-            return !string.IsNullOrEmpty(Pronunciation) && !string.IsNullOrEmpty(Logograph) && Definitions.Any()
+            return !string.IsNullOrEmpty(Pronunciation) && !string.IsNullOrEmpty(Logograph) && Definitions.Any();
         }
 
         public static bool operator ==(Character init, string character)
@@ -36,6 +36,36 @@ namespace ChineseDictionary.Resources.Models
         public static bool operator !=(Character init, string character)
         {
             return !(init == character);
+        }
+
+        protected bool Equals(Character other)
+        {
+            return Number == other.Number && string.Equals(Logograph, other.Logograph) &&
+                   string.Equals(Pronunciation, other.Pronunciation) && Equals(Definitions, other.Definitions) &&
+                   Equals(Usages, other.Usages) && Equals(Phrases, other.Phrases) && Equals(Idioms, other.Idioms);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Character)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = Number;
+                hashCode = (hashCode * 397) ^ (Logograph != null ? Logograph.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Pronunciation != null ? Pronunciation.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Definitions != null ? Definitions.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Usages != null ? Usages.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Phrases != null ? Phrases.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Idioms != null ? Idioms.GetHashCode() : 0);
+                return hashCode;
+            }
         }
     }
 }
