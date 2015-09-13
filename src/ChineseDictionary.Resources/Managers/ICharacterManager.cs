@@ -8,7 +8,7 @@ namespace ChineseDictionary.Resources.Managers
     {
         Task<bool> AddCharacterAsync(Character character);
         Task<Character> FindCharacterAsync(string character);
-        Task<bool> UpdatePronounciationAsync(string character, string pronouncition);
+        Task<bool> UpdatePronunciationAsync(string character, string pronouncition);
         Task<bool> UpdateDefinitionAsync(string character, string definition);
         Task<bool> UpdateUsageAsync(string character, string usage);
         Task<bool> RemoveDefinitionAsync(string character, string definition);

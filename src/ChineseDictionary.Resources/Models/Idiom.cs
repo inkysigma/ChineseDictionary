@@ -10,7 +10,7 @@ namespace ChineseDictionary.Resources.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Number { get; set; }
 
-        public string Pronounciation { get; set; }
+        public string Pronunciation { get; set; }
 
         [Key]
         public string Word { get; set; }
@@ -25,7 +25,7 @@ namespace ChineseDictionary.Resources.Models
 
         public bool Validate()
         {
-            return string.IsNullOrEmpty(Pronounciation) && string.IsNullOrEmpty(Word) && Definition.Any();
+            return string.IsNullOrEmpty(Pronunciation) && string.IsNullOrEmpty(Word) && Definition.Any();
         }
     }
 }

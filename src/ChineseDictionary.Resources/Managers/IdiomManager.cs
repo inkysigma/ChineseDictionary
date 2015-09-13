@@ -27,14 +27,14 @@ namespace ChineseDictionary.Resources.Managers
             if (!idiom.Validate() && !await Context.Idioms.ContainsAsync(idiom))
                 return false;
             Context.Idioms.Add(idiom);
-            bool buildPronounciation = string.IsNullOrEmpty(idiom.Pronounciation);
+            bool buildPronounciation = string.IsNullOrEmpty(idiom.Pronunciation);
             foreach (char i in idiom.Word)
             {
                 Character c = await Manager.FindCharacterAsync(i.ToString());
                 idiom.Characters.Add(c);
                 c.Idioms.Add(idiom);
                 if (buildPronounciation)
-                    idiom.Pronounciation += c.Pronounciation;
+                    idiom.Pronunciation += c.Pronunciation;
             }
             await Save();
             return true;
@@ -54,14 +54,14 @@ namespace ChineseDictionary.Resources.Managers
             return await Context.Idioms.Where(c => c.Definition.Contains(definition)).ToArrayAsync();
         }
 
-        public async Task<bool> UpdatePronounciationAsync(string idiom, string pronouncition)
+        public async Task<bool> UpdatePronunciationAsync(string idiom, string pronouncition)
         {
             if (string.IsNullOrEmpty(idiom) || string.IsNullOrEmpty(pronouncition))
                 return false;
             var c = await FindIdiomAsync(idiom);
             if (c == null)
                 return false;
-            c.Pronounciation = pronouncition;
+            c.Pronunciation = pronouncition;
             await Save();
             return true;
         }

@@ -43,9 +43,9 @@ namespace ChineseDictionary.Resources.Managers
             return true;
         }
 
-        public async Task<Phrase> UpdatePronounciationAsync(string phrase)
+        public async Task<Phrase> UpdatePronunciationAsync(string phrase, string pronounciation)
         {
-            
+            if ()
         }
     }
 }

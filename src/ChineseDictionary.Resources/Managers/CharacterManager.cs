@@ -36,14 +36,14 @@ namespace ChineseDictionary.Resources.Managers
             return await Context.Characters.Where(c => c.Logograph == character).FirstOrDefaultAsync();
         }
 
-        public async Task<bool> UpdatePronounciationAsync(string character, string pronouncition)
+        public async Task<bool> UpdatePronunciationAsync(string character, string pronouncition)
         {
             if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(pronouncition))
                 return false;
             var c = await FindCharacterAsync(character);
             if (c == null)
                 return false;
-            c.Pronounciation = pronouncition;
+            c.Pronunciation = pronouncition;
             await Save();
             return true;
         }
