@@ -55,7 +55,9 @@ namespace ChineseDictionary.Controllers
             if (type == 1)
                 return Description.Create(await _idiomManager.GetIdiom(random.Next(0, await _idiomManager.CountAsync())));
             if (type == 2)
-                return Description.Create(await _phraseManager.GetPhrase)
+                return
+                    Description.Create(await _phraseManager.GetPhrase(random.Next(0, await _phraseManager.CountAsync())));
+            return Description.Create(await _characterManager.GetCharacter(random.Next(0, await _characterManager.CountAsync())));
         }
     }
 }
