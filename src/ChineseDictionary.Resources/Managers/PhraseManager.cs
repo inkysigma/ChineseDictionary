@@ -48,11 +48,22 @@ namespace ChineseDictionary.Resources.Managers
         {
             if (string.IsNullOrEmpty(phrase) || string.IsNullOrEmpty(pronunciation))
                 return false;
-            var firstOrDefault =
-                await Context.Phrases.Where(c => c.Pronunciation == pronunciation).FirstOrDefaultAsync();
+            var firstOrDefault = await FindPhraseAsync(phrase);
             if (firstOrDefault == null)
                 return false;
             firstOrDefault.Pronunciation = pronunciation;
+            await Save();
+            return true;
+        }
+
+        public async Task<bool> UpdatePartOfSpeechAsync(string phrase, string partOfSpeech)
+        {
+            if (string.IsNullOrEmpty(phrase) || string.IsNullOrEmpty(partOfSpeech))
+                return false;
+            var firstOrDefault = await FindPhraseAsync(phrase);
+            if (firstOrDefault == null)
+                return false;
+            firstOrDefault.PartOfSpeech = partOfSpeech;
             await Save();
             return true;
         }

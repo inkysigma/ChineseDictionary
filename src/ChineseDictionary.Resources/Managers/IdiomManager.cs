@@ -66,6 +66,18 @@ namespace ChineseDictionary.Resources.Managers
             return true;
         }
 
+        public async Task<bool> UpdatePartOfSpeechAsync(string idiom, string partOfSpeech)
+        {
+            if (string.IsNullOrEmpty(idiom) || string.IsNullOrEmpty(partOfSpeech))
+                return false;
+            var firstOrDefault = await FindIdiomAsync(idiom);
+            if (firstOrDefault == null)
+                return false;
+            firstOrDefault.PartOfSpeech = partOfSpeech;
+            await Save();
+            return true;
+        }
+
         public async Task<bool> UpdateDefinitionAsync(string idiom, string definition)
         {
             if (string.IsNullOrEmpty(idiom) || string.IsNullOrEmpty(definition))
