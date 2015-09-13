@@ -11,10 +11,10 @@ namespace ChineseDictionary.Resources.Managers
         public ICharacterManager Manager { get; set; }
         public DictionaryContext Context { get; set; }
 
-        public IdiomManager(ICharacterManager manager)
+        public IdiomManager(DictionaryContext context, ICharacterManager manager)
         {
+            Context = context;
             Manager = manager;
-            Context = manager.Context;
         }
 
         private async Task Save()
