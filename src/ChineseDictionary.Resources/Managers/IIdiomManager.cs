@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ChineseDictionary.Resources.Models;
 
@@ -10,6 +10,7 @@ namespace ChineseDictionary.Resources.Managers
         Task<Idiom> FindIdiomAsync(string idiom);
         Task<IEnumerable<Idiom>> FindIdiomsByDefinitionAsync(string definition);
         Task<bool> UpdatePronunciationAsync(string idiom, string pronouncition);
+        Task<bool> UpdatePartOfSpeechAsync(string idiom, string partOfSpeech);
         Task<bool> UpdateDefinitionAsync(string idiom, string definition);
         Task<bool> UpdateUsageAsync(string idiom, string usage);
         Task<bool> RemoveDefinitionAsync(string idiom, string definition);

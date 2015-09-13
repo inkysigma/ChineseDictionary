@@ -36,11 +36,11 @@ namespace ChineseDictionary.Resources.Managers
             return await Context.Characters.Where(c => c.Logograph == character).FirstOrDefaultAsync();
         }
 
-        public async Task<Character> FindCharacterByDefinitionAsync(string character, string definition)
+        public async Task<IEnumerable<Character>> FindCharactersByDefinitionAsync(string character, string definition)
         {
             if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(definition))
                 return null;
-            return await Context.Characters.Where(c => c.Definition.Contains(definition)).FirstOrDefaultAsync();
+            return await Context.Characters.Where(c => c.Definition.Contains(definition)).ToArrayAsync();
         }
 
         public async Task<bool> UpdatePronunciationAsync(string character, string pronouncition)
