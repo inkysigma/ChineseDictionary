@@ -6,7 +6,7 @@ using ChineseDictionary.Resources.Models;
 
 namespace ChineseDictionary.Resources.Managers
 {
-    public class IdiomManager
+    public class IdiomManager : IIdiomManager
     {
         public CharacterManager Manager { get; set; }
         public DictionaryContext Context { get; set; }
@@ -45,6 +45,13 @@ namespace ChineseDictionary.Resources.Managers
             if (string.IsNullOrEmpty(idiom))
                 return null;
             return await Context.Idioms.Where(c => c.Word.StartsWith(idiom)).FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<Idiom>> FindIdiomsByDefinitionAsync(string definition)
+        {
+            if (string.IsNullOrEmpty(definition))
+                return null;
+            return await Context.Idioms.Where(c => c.Definition.Contains(definition)).ToArrayAsync();
         }
 
         public async Task<bool> UpdatePronounciationAsync(string idiom, string pronouncition)

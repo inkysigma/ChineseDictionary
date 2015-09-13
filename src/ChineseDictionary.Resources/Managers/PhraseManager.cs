@@ -42,5 +42,10 @@ namespace ChineseDictionary.Resources.Managers
             await Save();
             return true;
         }
+
+        public async Task<Phrase> UpdatePronounciationAsync(string phrase)
+        {
+            
+        }
     }
 }

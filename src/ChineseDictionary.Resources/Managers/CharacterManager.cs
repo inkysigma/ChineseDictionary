@@ -6,7 +6,7 @@ using System.Data.Entity;
 
 namespace ChineseDictionary.Resources.Managers
 {
-    public class CharacterManager
+    public class CharacterManager : ICharacterManager
     {
         public DictionaryContext Context { get; set; }
 
