@@ -40,7 +40,7 @@ namespace ChineseDictionary.Resources.Managers
         {
             if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(definition))
                 return null;
-            return await Context.Characters.Where(c => c.Definition.Contains(definition)).ToArrayAsync();
+            return await Context.Characters.Where(c => c.Definitions.Contains(definition)).ToArrayAsync();
         }
 
         public async Task<bool> UpdatePronunciationAsync(string character, string pronouncition)
@@ -74,7 +74,7 @@ namespace ChineseDictionary.Resources.Managers
             var c = await FindCharacterAsync(character);
             if (c == null)
                 return false;
-            c.Definition.Add(definition);
+            c.Definitions.Add(definition);
             await Save();
             return true;
         }
@@ -98,7 +98,7 @@ namespace ChineseDictionary.Resources.Managers
             var c = await FindCharacterAsync(character);
             if (c == null)
                 return false;
-            c.Definition.Remove(definition);
+            c.Definitions.Remove(definition);
             await Save();
             return true;
         }

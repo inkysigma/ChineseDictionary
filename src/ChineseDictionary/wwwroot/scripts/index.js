@@ -6,7 +6,7 @@ var SearchType = {
     Word: 1
 }
 
-var app = angular.module("DictionaryModule", []);
+var app = angular.module("DictionaryModule", ["ngRoute", "characterControllers"]);
 
 app.controller("ListController",
     function($scope, $http) {
@@ -42,3 +42,21 @@ app.controller("ListController",
                 });
             });
     });
+
+
+
+app.config([
+    "$routeProvider", "$locationProvider", function(provider, location) {
+        provider.when("/", {
+            templateUrl: "List.html",
+            controller: "ListController"
+        });
+        provider.when("/AddCharacter",
+        {
+            templateUrl: "Characters/AddCharacter.html",
+            controller: "AddCharacterController"
+        });
+
+        location.html5Mode(true);
+    }
+]);

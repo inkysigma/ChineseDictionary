@@ -1,0 +1,14 @@
+﻿<form class="search form-horizontal">
+    <div class="form-group">
+        <label for="search" class="col-sm-2 control-label">Search</label>
+        <div class="col-sm-6">
+            <input class="form-control" type="text" id="search" placeholder="Search" />
+        </div>
+    </div>
+</form>
+<div class="list-group">
+    <div class="item list-group-item" ng-repeat="description in descriptions">
+        <h1 ng-bind="description.Word"></h1>
+        <p>{{description.PartOfSpeech + " - " + description.Definition}}</p>
+    </div>
+</div>

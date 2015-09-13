@@ -50,7 +50,15 @@ namespace ChineseDictionary
             app.UseStaticFiles();
 
             // Add MVC to the request pipeline.
-            app.UseMvc(c => c.MapRoute("Default", "api/{controller}/{action}/{id?}"));
+            app.UseMvc(c =>
+            {
+                c.MapRoute("Default", "api/{controller}/{action}/{id?}");
+                c.MapRoute("Angular", "{*anything}", new
+                {
+                    controller = "Default",
+                    action = "Index"
+                });
+            });
         }
     }
 }

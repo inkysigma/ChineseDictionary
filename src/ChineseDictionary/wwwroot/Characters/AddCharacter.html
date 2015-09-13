@@ -1,0 +1,54 @@
+﻿<h1>Add a character</h1>
+<form name="addCharacterForm" class="form-horizontal" novalidate>
+    <div class="form-group">
+        <label for="character" class="control-label col-sm-2">Character:</label>
+        <div class="col-sm-5">
+            <input type="text" id="character" class="form-control" ng-model="character" required/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="pronunciation" class="control-label col-sm-2">Pronunciation:</label>
+        <div class="col-sm-5">
+            <input type="text" id="pronunciation" class="form-control" ng-model="pronunciation" required/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="partOfSpeech" class="control-label col-sm-2">Part Of Speech:</label>
+        <div class="col-sm-5">
+            <input type="text" id="partOfSpeech" class="form-control" ng-model="partOfSpeech" required/>
+        </div>
+    </div>
+    <div ng-repeat="definition in definitions track by $index">
+        <div class="form-group">
+            <label for="definitions" class="control-label col-sm-2" ng-show="$index == 0">Definition</label>
+            <p class="col-sm-2" ng-show="$index != 0"></p>
+            <div class="col-sm-5">
+                <input id="definitions" type="text" class="form-control" ng-model="$parent.definitions[$index]" required/>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <p class="col-sm-2"></p>
+        <button ng-click="addDefinition()" class="btn col-sm-1">Add a definition</button>
+        <button ng-click="removeDefinition()" class="btn col-sm-1">Remove a definition</button>
+    </div>
+    <div ng-repeat="usage in usages track by $index">
+        <div class="form-group">
+            <label for="usage" class="control-label col-sm-2" ng-show="$index == 0">Usage</label>
+            <p class="col-sm-2" ng-show="$index != 0"></p>
+            <div class="col-sm-5">
+                <input id="usage" type="text" class="form-control" ng-model="$parent.usages[$index]" required/>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-1">
+            <button ng-click="addUsage()" class="btn">Add a usage</button>
+        </div>
+        <div class="col-sm-1">
+            <button ng-click="removeUsage()" class="btn">Remove a usage</button>
+        </div>
+    </div>
+</form>
+<div ng-bind="result"></div>

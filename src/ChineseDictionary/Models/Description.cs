@@ -21,7 +21,7 @@ namespace ChineseDictionary.Models
 
         public static Description Create(Character character)
         {
-            var description = new Description(character.Logograph, character.PartOfSpeech, character.Definition,
+            var description = new Description(character.Logograph, character.PartOfSpeech, character.Definitions,
                 character.Usages)
             {
                 Type = "Character"
