@@ -6,14 +6,20 @@ using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Routing;
+using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 
 namespace ChineseDictionary
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; set; }
         public Startup(IHostingEnvironment env)
         {
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("config.json")
+                .AddEnvironmentVariables();
+            Configuration = config.Build();
         }
 
         // This method gets called by a runtime.
