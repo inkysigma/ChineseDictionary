@@ -29,6 +29,13 @@ namespace ChineseDictionary.Resources.Managers
             return await Context.Phrases.Where(c => c.Word.StartsWith(phrase)).FirstOrDefaultAsync();
         }
 
+        public async Task<IEnumerable<Phrase>> FindPhrasesByCharacterAsync(string character)
+        {
+            if (string.IsNullOrEmpty(character))
+                return new Phrase[0];
+            return await Context.Phrases.Where(c => c.Characters.Any(x => x.Logograph == character)).ToArrayAsync();
+        }
+
         public async Task<IEnumerable<Phrase>> FindPhrasesByDefinitionAsync(string phrase, string definition)
         {
             if (string.IsNullOrEmpty(phrase) || string.IsNullOrEmpty(definition))

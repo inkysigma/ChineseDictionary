@@ -57,7 +57,7 @@ namespace ChineseDictionary.Resources.Managers
         public async Task<IEnumerable<Idiom>> FindIdiomsByDefinitionAsync(string definition)
         {
             if (string.IsNullOrEmpty(definition))
-                return null;
+                return new Idiom[0];
             return await Context.Idioms.Where(c => c.Definition.Contains(definition)).ToArrayAsync();
         }
 
