@@ -127,6 +127,14 @@ namespace ChineseDictionary.Resources.Managers
             return true;
         }
 
+
+        public async Task<Character> GetCharacter(int number)
+        {
+            if (number < 0)
+                return null;
+            return await Context.Characters.Where(c => c.Number == number).FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<Character>> GetCharactersAsync()
         {
             return await Context.Characters.Where(c => true).ToArrayAsync();

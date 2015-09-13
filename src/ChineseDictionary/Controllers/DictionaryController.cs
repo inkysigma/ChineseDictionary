@@ -47,5 +47,10 @@ namespace ChineseDictionary.Controllers
 
             return list;
         }
+
+        public async Task<IEnumerable<Description>> GetRandom()
+        {
+            
+        }
     }
 }

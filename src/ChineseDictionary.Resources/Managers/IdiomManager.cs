@@ -157,6 +157,13 @@ namespace ChineseDictionary.Resources.Managers
             return true;
         }
 
+        public async Task<Idiom> GetIdiom(int number)
+        {
+            if (number < 0)
+                return null;
+            return await Context.Idioms.Where(c => c.Number == number).FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<Idiom>> GetIdiomsAsync()
         {
             return await Context.Idioms.Where(c => true).ToArrayAsync();
