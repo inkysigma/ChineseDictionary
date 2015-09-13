@@ -90,6 +90,18 @@ namespace ChineseDictionary.Resources.Managers
             return true;
         }
 
+        public async Task<bool> UpdateStoryAsync(string idiom, string story)
+        {
+            if (string.IsNullOrEmpty(idiom) || string.IsNullOrEmpty(story))
+                return false;
+            var c = await FindIdiomAsync(idiom);
+            if (c == null)
+                return false;
+            c.Story = story;
+            await Save();
+            return true;
+        }
+
         public async Task<bool> UpdateUsageAsync(string idiom, string usage)
         {
             if (string.IsNullOrEmpty(idiom) || string.IsNullOrEmpty(usage))
