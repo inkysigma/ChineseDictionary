@@ -135,12 +135,12 @@ namespace ChineseDictionary.Resources.Managers
             return true;
         }
 
-        public async Task<IEnumerable<Phrase>> GetCharactersAsync()
+        public async Task<IEnumerable<Phrase>> GetPhrasesAsync()
         {
             return await Context.Phrases.Where(c => true).ToArrayAsync();
         }
 
-        public async Task<IEnumerable<Phrase>> GetCharacterRangeAsync(int beginning, int range)
+        public async Task<IEnumerable<Phrase>> GetPhraseRangeAsync(int beginning, int range)
         {
             return await Context.Phrases.OrderBy(c => c.Number).Skip(beginning).Take(range).ToArrayAsync();
         }

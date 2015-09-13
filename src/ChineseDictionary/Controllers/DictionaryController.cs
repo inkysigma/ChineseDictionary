@@ -24,7 +24,7 @@ namespace ChineseDictionary.Controllers
             _idiomManager = idiomManager;
         }
 
-        public async Task<IEnumerable<Description>> GetRandom(int id = 20)
+        public async Task<IEnumerable<Description>> GetRandomRange(int id = 20)
         {
             var random = new Random();
             int numChars = await _characterManager.CountAsync();
@@ -33,7 +33,19 @@ namespace ChineseDictionary.Controllers
                         select Description.Create((Character) i)).ToList();
             int numIdioms = await _idiomManager.CountAsync();
             int idioms = random.Next(numIdioms);
-            foreach (var i in _idiomManager.Get)
+            foreach (var i in await _idiomManager.GetIdiomRangeAsync(idioms - random.Next(0, id) + list.Count, idioms))
+            {
+                list.Add(Description.Create(i));
+            }
+
+            int numPhrases = await _phraseManager.CountAsync();
+            int phrases = random.Next(numPhrases);
+
+            foreach (var i in await _phraseManager.GetPhraseRangeAsync(phrases - random.Next(0, id) + list.Count, phrases))
+            {
+                list.Add(Description.Create(i));
+            }
+
             return list;
         }
     }
