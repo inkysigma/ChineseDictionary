@@ -8,10 +8,10 @@ namespace ChineseDictionary.Resources.Managers
 {
     public class PhraseManager : IPhraseManager
     {
-        public CharacterManager Manager { get; set; }
+        public ICharacterManager Manager { get; set; }
         public DictionaryContext Context { get; set; }
 
-        public PhraseManager(CharacterManager manager)
+        public PhraseManager(ICharacterManager manager)
         {
             Manager = manager;
             Context = manager.Context;
@@ -142,6 +142,8 @@ namespace ChineseDictionary.Resources.Managers
 
         public async Task<IEnumerable<Phrase>> GetPhraseRangeAsync(int beginning, int range)
         {
+            if (beginning < 0 || range < 0 || beginning > range)
+                return new Phrase[0];
             return await Context.Phrases.OrderBy(c => c.Number).Skip(beginning).Take(range).ToArrayAsync();
         }
 

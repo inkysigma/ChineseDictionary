@@ -6,6 +6,7 @@ namespace ChineseDictionary.Resources.Managers
 {
     public interface ICharacterManager
     {
+        DictionaryContext Context { get; set; }
         Task<bool> AddCharacterAsync(Character character);
         Task<Character> FindCharacterAsync(string character);
         Task<IEnumerable<Character>> FindCharactersByDefinitionAsync(string character, string definition);

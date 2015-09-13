@@ -15,7 +15,7 @@ namespace ChineseDictionary.Resources
 
         public DictionaryContext(string connection) : base(connection)
         {
-            bool test = base.Database.Exists();
+            
         }
     }
 }

@@ -8,10 +8,10 @@ namespace ChineseDictionary.Resources.Managers
 {
     public class IdiomManager : IIdiomManager
     {
-        public CharacterManager Manager { get; set; }
+        public ICharacterManager Manager { get; set; }
         public DictionaryContext Context { get; set; }
 
-        public IdiomManager(CharacterManager manager)
+        public IdiomManager(ICharacterManager manager)
         {
             Manager = manager;
             Context = manager.Context;
@@ -157,6 +157,8 @@ namespace ChineseDictionary.Resources.Managers
 
         public async Task<IEnumerable<Idiom>> GetIdiomRangeAsync(int beginning, int range)
         {
+            if (beginning < 0 || range < 0 || beginning > range)
+                return new Idiom[0];
             return await Context.Idioms.OrderBy(c => c.Number).Skip(beginning).Take(range).ToArrayAsync();
         }
 

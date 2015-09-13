@@ -5,6 +5,7 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.Dnx.Runtime;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
+using MySql.Data.MySqlClient;
 
 namespace ChineseDictionary
 {
@@ -25,13 +26,16 @@ namespace ChineseDictionary
         {
             services.AddMvc();
 
-            services.AddTransient(collection => new DictionaryContext(Configuration["Data:DefaultConnection"]));
+            services.AddTransient(collection =>
+                new DictionaryContext(Configuration["Data:DefaultConnection"])
+                );
 
-            services.AddTransient<ICharacterManager, CharacterManager>();
+            services.AddTransient<ICharacterManager, CharacterManager>(collection => new CharacterManager(collection.GetService<DictionaryContext>()));
 
-            services.AddTransient<IIdiomManager, IdiomManager>();
+            services.AddTransient<IIdiomManager, IdiomManager>(collection => new IdiomManager(collection.GetService<ICharacterManager>()));
 
-            services.AddTransient<IPhraseManager, PhraseManager>();
+            services.AddTransient<IPhraseManager, PhraseManager>(collection => new PhraseManager(collection.GetService<ICharacterManager>()));
+
         }
 
         // Configure is called after ConfigureServices is called.

@@ -29,8 +29,11 @@ namespace ChineseDictionary.Controllers
             var random = new Random();
             int numChars = await _characterManager.CountAsync();
             int chars = random.Next(numChars);
-            var list = (from i in await _characterManager.GetCharacterRangeAsync(chars - random.Next(0, id), chars)
-                        select Description.Create((Character) i)).ToList();
+            var list = new List<Description>();
+            foreach (var i in await _characterManager.GetCharacterRangeAsync(chars - random.Next(0, id), chars))
+            {
+                list.Add(Description.Create(i));
+            }
             int numIdioms = await _idiomManager.CountAsync();
             int idioms = random.Next(numIdioms);
             foreach (var i in await _idiomManager.GetIdiomRangeAsync(idioms - random.Next(0, id) + list.Count, idioms))
