@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using ChineseDictionary.Models;
 using ChineseDictionary.Resources.Managers;
+using ChineseDictionary.Resources.Models;
 using Microsoft.AspNet.Mvc;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -21,16 +24,17 @@ namespace ChineseDictionary.Controllers
             _idiomManager = idiomManager;
         }
 
-        public async Task<IEnumerable<string>> GetRandom(int id = 20)
+        public async Task<IEnumerable<Description>> GetRandom(int id = 20)
         {
             var random = new Random();
-            var list = new List<string>();
             int numChars = await _characterManager.CountAsync();
             int chars = random.Next(numChars);
-            foreach (var i in await _characterManager.GetCharacterRangeAsync(chars - id, chars))
-            {
-                list.Add
-            }
+            var list = (from i in await _characterManager.GetCharacterRangeAsync(chars - random.Next(0, id), chars)
+                        select Description.Create((Character) i)).ToList();
+            int numIdioms = await _idiomManager.CountAsync();
+            int idioms = random.Next(numIdioms);
+            foreach (var i in _idiomManager.Get)
+            return list;
         }
     }
 }

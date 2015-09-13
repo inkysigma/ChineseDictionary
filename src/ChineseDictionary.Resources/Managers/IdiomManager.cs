@@ -155,7 +155,7 @@ namespace ChineseDictionary.Resources.Managers
             return await Context.Idioms.Where(c => true).ToArrayAsync();
         }
 
-        public async Task<IEnumerable<Idiom>> GetCharacterRangeAsync(int beginning, int range)
+        public async Task<IEnumerable<Idiom>> GetIdiomRangeAsync(int beginning, int range)
         {
             return await Context.Idioms.OrderBy(c => c.Number).Skip(beginning).Take(range).ToArrayAsync();
         }
