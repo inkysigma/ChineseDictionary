@@ -14,8 +14,9 @@
     },
 
     "scripts": {
-        "prerestore": [ "npm install", "bower install" ],
-        "prepare": [ "gulp bower" ]
+      "prerestore": [ "npm install", "bower install" ],
+      "postrestore": [ "gulp install" ],
+      "prepare": [ "gulp install" ]
     },
 
     "commands": {
