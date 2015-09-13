@@ -1,15 +1,17 @@
 ﻿<!DOCTYPE html>
-<html ng-app="dictionary">
+<html ng-app="DictionaryModule">
 <head>
     <meta charset="utf-8" />
     <title>Chinese Dictionary</title>
     <script type="text/javascript" src="lib/angular/angular.min.js"></script>
+    <script type="text/javascript" src="scripts/index.js"></script>
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css"/>
 </head>
-<body ng-controller="dictionary.ListController as list">
+<body ng-controller="ListController as list">
 <div class="list-group">
-    <div class="item list-group-item" ng-repeat="description in description">
+    <div class="item list-group-item" ng-repeat="description in descriptions">
         <h1 ng-bind="description.Word"></h1>
-        <p>{{descript.PartOfSpeech + " - " + description.Definition}}</p>
+        <p>{{description.PartOfSpeech + " - " + description.Definition}}</p>
     </div>
 </div>
 </body>

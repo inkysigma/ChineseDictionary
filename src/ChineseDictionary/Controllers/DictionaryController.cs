@@ -13,9 +13,9 @@ namespace ChineseDictionary.Controllers
 {
     public class DictionaryController : Controller
     {
-        private ICharacterManager _characterManager;
-        private IPhraseManager _phraseManager;
-        private IIdiomManager _idiomManager;
+        private readonly ICharacterManager _characterManager;
+        private readonly IPhraseManager _phraseManager;
+        private readonly IIdiomManager _idiomManager;
 
         public DictionaryController(ICharacterManager characterManager, IPhraseManager phraseManager, IIdiomManager idiomManager)
         {

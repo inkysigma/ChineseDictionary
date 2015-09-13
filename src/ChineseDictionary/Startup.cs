@@ -2,6 +2,7 @@
 using ChineseDictionary.Resources.Managers;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
+using Microsoft.Dnx.Runtime;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 
@@ -10,9 +11,9 @@ namespace ChineseDictionary
     public class Startup
     {
         public IConfiguration Configuration { get; set; }
-        public Startup(IHostingEnvironment env)
+        public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
         {
-            var config = new ConfigurationBuilder()
+            var config = new ConfigurationBuilder(appEnv.ApplicationBasePath)
                 .AddJsonFile("config.json")
                 .AddEnvironmentVariables();
             Configuration = config.Build();
@@ -24,7 +25,7 @@ namespace ChineseDictionary
         {
             services.AddMvc();
 
-            services.AddTransient<DictionaryContext>();
+            services.AddTransient(collection => new DictionaryContext(Configuration["Data:DefaultConnection"]));
 
             services.AddTransient<ICharacterManager, CharacterManager>();
 

@@ -11,6 +11,8 @@ namespace ChineseDictionary.Resources.Configuration
         public MySqlConfiguration()
         {
             var dataSet = (DataSet) ConfigurationManager.GetSection("system.data");
+            var row = dataSet.Tables[0].Rows.Find("MySql.Data.MySqlClient");
+            dataSet.Tables[0].Rows.Remove(row);
             dataSet.Tables[0].Rows.Add(
                 "MySQL Data Provider",
                 ".Net Framework Data Provider for MySQL",

@@ -1,0 +1,5 @@
+﻿{
+  "Data": {
+    "DefaultConnection": "Server=127.0.0.1;Database=chinese;Uid=public;Pwd=public"
+  }
+}
