@@ -7,21 +7,19 @@ namespace ChineseDictionary.Models
     {
         public string Type { get; set; }
         public string Word { get; set; }
-        public string PartOfSpeech { get; set; }
-        public IEnumerable<string> Definitions { get; set; }
+        public IDictionary<string, string> Definitions { get; set; }
         public IEnumerable<string> Usages { get; set; } 
 
-        public Description(string word, string partOfSpeech, IEnumerable<string> definitions, IEnumerable<string> usages)
+        public Description(string word, IDictionary<string, string> definitions, IEnumerable<string> usages)
         {
             Word = word;
-            PartOfSpeech = partOfSpeech;
             Definitions = definitions;
             Usages = usages;
         }
 
         public static Description Create(Character character)
         {
-            var description = new Description(character.Logograph, character.PartOfSpeech, character.Definitions,
+            var description = new Description(character.Logograph,character.Definitions,
                 character.Usages)
             {
                 Type = "Character"
@@ -31,7 +29,7 @@ namespace ChineseDictionary.Models
 
         public static Description Create(Phrase phrase)
         {
-            return new Description(phrase.Word, phrase.PartOfSpeech, phrase.Definition, phrase.Usages)
+            return new Description(phrase.Word, phrase.Definition, phrase.Usages)
             {
                 Type = "Phrase"
             };
@@ -39,7 +37,7 @@ namespace ChineseDictionary.Models
 
         public static Description Create(Idiom idiom)
         {
-            return new Description(idiom.Word, idiom.PartOfSpeech, idiom.Definitions, idiom.Usages)
+            return new Description(idiom.Word, idiom.Definitions, idiom.Usages)
             {
                 Type = "Idiom"
             };
