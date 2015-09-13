@@ -6,10 +6,8 @@
     app.controller("AddCharacterController", function($scope, $http) {
         $scope.character = "";
         $scope.pronunciation = "";
-        $scope.definitions = [
-        {
-            "":""
-        }];
+        $scope.partsOfSpeech = [""];
+        $scope.definitions = [""];
         $scope.usages = [""];
         $scope.result = "";
         $scope.submit = function (isValid) {
@@ -17,17 +15,23 @@
                 $scope.result = "The form has some incorrect fields.";
                 return;
             }
+            var build = [];
+            for (var i = 0; i < definitions.length; i++) {
+                build.push({
+                    key: $scope.definitions[i],
+                    value: $scope.partsOfSpeech[i]
+                });
+            }
             $http.post("/api/Character/AddCharacter",
             {
                 Logograph: $scope.character,
-                Definitions: $scope.definitions,
+                Definitions: build,
                 Pronunciation: $scope.pronunciation,
                 Usages: $scope.usages
             }).then(function(response) {
-                if (response.data === "true") {
+                if (response.data === "Success!") {
                     $scope.result = "Success!";
                     $scope.character = "";
-                    $scope.partOfSpeech = "";
                     $scope.pronunciation = "";
                     $scope.definitions = [""];
                     $scope.usages = [""];
@@ -40,16 +44,21 @@
         }
         $scope.addDefinition = function() {
             $scope.definitions.push("");
+            $scope.partsOfSpeech.push("");
         }
         $scope.addUsage = function() {
             $scope.usages.push("");
         }
         $scope.removeDefinition = function() {
-            if ($scope.definitions.length !== 1)
+            if ($scope.definitions.length !== 1) {
                 $scope.definitions.pop();
+                $scope.partsOfSpeech.pop();
+            }
         }
         $scope.removeUsage = function() {
-            if ($scope.usages.length !== 1)
+            if ($scope.usages.length !== 1) {
                 $scope.definitions.pop();
+                $scope.partsOfSpeech.pop();
+            }
         }
     });

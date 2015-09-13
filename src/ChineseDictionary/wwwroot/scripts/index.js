@@ -23,15 +23,9 @@ app.controller("ListController",
                     });
                 }
                 for (var i = 0; i < response.data.length; i++) {
-                    var definition = "";
-                    for (var x = 0; x < response.data[i].Definition.length; i++) {
-                        definition.append(response.data[i].Definition[x] + ", ");
-                    }
-                    definition = definition.substring(0, definition.length - 2);
                     $scope.descriptions.append({
                         Word: response.data[i].Word,
-                        PartOfSpeech: response.data[i].PartOfSpeech,
-                        Definition: definition
+                        Definition: response.data[i].Definitions
                     });
                 }
             }, function(response) {

@@ -4,3 +4,6 @@
 .ng-valid.ng-dirty {
     border-color: #A3F4A9;
 }
+.ng-pristine {
+    border-color: #DEED90;
+}
