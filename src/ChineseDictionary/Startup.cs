@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ChineseDictionary.Resources;
+using ChineseDictionary.Resources.Managers;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
@@ -31,7 +32,8 @@ namespace ChineseDictionary
 
             services.AddTransient<DictionaryContext>();
 
-            services.AddTransient<>()
+            services.AddTransient<ICharacterManager, CharacterManager>();
+
         }
 
         // Configure is called after ConfigureServices is called.

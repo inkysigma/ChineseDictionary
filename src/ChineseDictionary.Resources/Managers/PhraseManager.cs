@@ -43,9 +43,17 @@ namespace ChineseDictionary.Resources.Managers
             return true;
         }
 
-        public async Task<Phrase> UpdatePronunciationAsync(string phrase, string pronounciation)
+        public async Task<bool> UpdatePronunciationAsync(string phrase, string pronunciation)
         {
-            if ()
+            if (string.IsNullOrEmpty(phrase) || string.IsNullOrEmpty(pronunciation))
+                return false;
+            var firstOrDefault =
+                await Context.Phrases.Where(c => c.Pronunciation == pronunciation).FirstOrDefaultAsync();
+            if (firstOrDefault == null)
+                return false;
+            firstOrDefault.Pronunciation = pronunciation;
+            await Save();
+            return true;
         }
     }
 }
