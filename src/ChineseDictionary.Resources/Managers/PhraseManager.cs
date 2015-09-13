@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using ChineseDictionary.Resources.Models;
@@ -54,6 +55,76 @@ namespace ChineseDictionary.Resources.Managers
             firstOrDefault.Pronunciation = pronunciation;
             await Save();
             return true;
+        }
+
+        public async Task<bool> UpdateDefinitionAsync(string phrase, string definition)
+        {
+            if (string.IsNullOrEmpty(phrase) || string.IsNullOrEmpty(definition))
+                return false;
+            var c = await FindPhraseAsync(phrase);
+            if (c == null)
+                return false;
+            c.Definition.Add(definition);
+            await Save();
+            return true;
+        }
+
+        public async Task<bool> UpdateUsageAsync(string phrase, string usage)
+        {
+            if (string.IsNullOrEmpty(phrase) || string.IsNullOrEmpty(usage))
+                return false;
+            var c = await FindPhraseAsync(phrase);
+            if (c == null)
+                return false;
+            c.Usages.Add(usage);
+            await Save();
+            return true;
+        }
+
+        public async Task<bool> RemoveDefinitionAsync(string phrase, string definition)
+        {
+            if (string.IsNullOrEmpty(phrase) || string.IsNullOrEmpty(definition))
+                return false;
+            var c = await FindPhraseAsync(phrase);
+            if (c == null)
+                return false;
+            c.Definition.Remove(definition);
+            await Save();
+            return true;
+        }
+
+        public async Task<bool> RemoveUsageAsync(string phrase, string usage)
+        {
+            if (string.IsNullOrEmpty(phrase) || string.IsNullOrEmpty(usage))
+                return false;
+            var c = await FindPhraseAsync(phrase);
+            if (c == null)
+                return false;
+            c.Usages.Remove(usage);
+            await Save();
+            return true;
+        }
+
+        public async Task<bool> RemoveIdiomAsync(string phrase)
+        {
+            if (string.IsNullOrEmpty(phrase))
+                return false;
+            var c = await FindPhraseAsync(phrase);
+            if (c == null)
+                return false;
+            Context.Phrases.Remove(c);
+            await Save();
+            return true;
+        }
+
+        public async Task<IEnumerable<Phrase>> GetCharactersAsync()
+        {
+            return await Context.Phrases.Where(c => true).ToArrayAsync();
+        }
+
+        public async Task<IEnumerable<Phrase>> GetCharacterRangeAsync(int beginning, int range)
+        {
+            return await Context.Idioms.OrderBy(c => c.Number).Skip(beginning).Take(range).ToArrayAsync();
         }
     }
 }
