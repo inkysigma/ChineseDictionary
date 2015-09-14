@@ -12,27 +12,30 @@ app.controller("ListController",
     function($scope, $http) {
         $scope.descriptions = [];
         $scope.search = "";
-        $scope.searchBy = 
-        $http.post("api/Dictionary/GetRandomRange")
-            .then(function (response) {
+        $scope.searchBy =
+            $http.post("api/Dictionary/GetLatestRange")
+            .then(function(response) {
                 if (response.data.length === 0) {
+
                     $scope.descriptions.push({
                         Word: "Nothing Here!",
-                        PartOfSpeech: "There is nothing on the server",
-                        Definition: "Try adding a character!"
+                        Definitions: {
+                            "Try adding a character!":"There is nothing on the server"
+                        }
                     });
                 }
                 for (var i = 0; i < response.data.length; i++) {
-                    $scope.descriptions.append({
+                    $scope.descriptions.push({
                         Word: response.data[i].Word,
-                        Definition: response.data[i].Definitions
+                        Definitions: response.data[i].Definitions
                     });
                 }
             }, function(response) {
+                var definitions = new Array();
+                definitions[response.statusText] = response.status;
                 $scope.descriptions.push({
                     Word: "An error occurred",
-                    PartOfSpeech: response.status,
-                    Definition: response.statusText
+                    Definitions: definitions
                 });
             });
     });

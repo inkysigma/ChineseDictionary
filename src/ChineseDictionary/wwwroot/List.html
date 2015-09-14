@@ -9,6 +9,6 @@
 <div class="list-group">
     <div class="item list-group-item" ng-repeat="description in descriptions">
         <h1 ng-bind="description.Word"></h1>
-        <p ng-repeat="(Definition, PartOfSpeech) in description.Definitions">{{PartOfSpeech + " - " + Definition}}</p>
+        <p ng-repeat="(key, value) in description.Definitions">{{value + " - " + key}}</p>
     </div>
 </div>

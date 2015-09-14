@@ -24,27 +24,12 @@ namespace ChineseDictionary.Controllers
             _idiomManager = idiomManager;
         }
 
-        public async Task<IEnumerable<Description>> GetRandomRange(int id = 20)
+        public async Task<IEnumerable<Description>> GetLatestRange(int id = 20)
         {
             var random = new Random();
-            int numChars = await _characterManager.CountAsync();
-            int chars = random.Next(numChars);
-            var list = (from i in await _characterManager.GetCharacterRangeAsync(chars - random.Next(0, id), chars) select Description.Create(i)).ToList();
-            int numIdioms = await _idiomManager.CountAsync();
-            int idioms = random.Next(numIdioms);
-            foreach (var i in await _idiomManager.GetIdiomRangeAsync(idioms - random.Next(0, id) + list.Count, idioms))
-            {
-                list.Add(Description.Create(i));
-            }
-
-            int numPhrases = await _phraseManager.CountAsync();
-            int phrases = random.Next(numPhrases);
-
-            foreach (var i in await _phraseManager.GetPhraseRangeAsync(phrases - random.Next(0, id) + list.Count, phrases))
-            {
-                list.Add(Description.Create(i));
-            }
-
+            var list = (from i in await _characterManager.GetLatestCharactersAsync(random.Next(0, id)) select Description.Create(i)).ToList();
+            list.AddRange((from i in await _idiomManager.GetLatestIdiomsAsync(random.Next(0, id) - list.Count) select Description.Create(i)));
+            list.AddRange((from i in await _phraseManager.GetLatestPhrasesAsync(random.Next(0, id) - list.Count) select Description.Create(i)));
             return list;
         }
 

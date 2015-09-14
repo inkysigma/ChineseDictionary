@@ -7,10 +7,10 @@ namespace ChineseDictionary.Models
     {
         public string Type { get; set; }
         public string Word { get; set; }
-        public IDictionary<string, string> Definitions { get; set; }
+        public ICollection<DefinitionEntry> Definitions { get; set; }
         public IEnumerable<string> Usages { get; set; } 
 
-        public Description(string word, IDictionary<string, string> definitions, IEnumerable<string> usages)
+        public Description(string word, ICollection<DefinitionEntry> definitions, IEnumerable<string> usages)
         {
             Word = word;
             Definitions = definitions;
@@ -29,7 +29,7 @@ namespace ChineseDictionary.Models
 
         public static Description Create(Phrase phrase)
         {
-            return new Description(phrase.Word, phrase.Definition, phrase.Usages)
+            return new Description(phrase.Word, phrase.Definitions, phrase.Usages)
             {
                 Type = "Phrase"
             };

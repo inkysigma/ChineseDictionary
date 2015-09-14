@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using ChineseDictionary.Resources.Models;
 
@@ -22,7 +24,7 @@ namespace ChineseDictionary.Resources.Managers
 
         public async Task<bool> AddCharacterAsync(Character character)
         {
-            if (!character.Validate() && !await Context.Characters.ContainsAsync(character))
+            if (!character.Validate() || Context.Characters.Any(c => c.Logograph == character.Logograph))
                 return false;
             Context.Characters.Add(character);
             await Save();
@@ -40,7 +42,7 @@ namespace ChineseDictionary.Resources.Managers
         {
             if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(definition))
                 return null;
-            return await Context.Characters.Where(c => c.Definitions.Any(x => x.Key == definition)).ToArrayAsync();
+            return await Context.Characters.Where(c => c.Definitions.Any(x => x.Definition == definition)).ToArrayAsync();
         }
 
         public async Task<bool> UpdatePronunciationAsync(string character, string pronouncition)
@@ -55,9 +57,9 @@ namespace ChineseDictionary.Resources.Managers
             return true;
         }
 
-        public async Task<bool> UpdateDefinitionAsync(string character, KeyValuePair<string, string> definition)
+        public async Task<bool> UpdateDefinitionAsync(string character, DefinitionEntry definition)
         {
-            if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(definition.Value) || string.IsNullOrEmpty(definition.Key))
+            if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(definition.Definition) || string.IsNullOrEmpty(definition.PartOfSpeech))
                 return false;
             var c = await FindCharacterAsync(character);
             if (c == null)
@@ -86,7 +88,7 @@ namespace ChineseDictionary.Resources.Managers
             var c = await FindCharacterAsync(character);
             if (c == null)
                 return false;
-            c.Definitions.Remove(definition);
+            c.Definitions.Remove(c.Definitions.FirstOrDefault(x => x.Definition == definition));
             await Save();
             return true;
         }
@@ -126,6 +128,17 @@ namespace ChineseDictionary.Resources.Managers
         public async Task<IEnumerable<Character>> GetCharactersAsync()
         {
             return await Context.Characters.Where(c => true).ToArrayAsync();
+        }
+
+        public async Task<IEnumerable<Character>> GetLatestCharactersAsync(int number)
+        {
+            if (number < 0)
+                return new Character[0];
+            int total = await CountAsync();
+            if (number > total)
+                number = total;
+            var values = await Context.Characters.OrderByDescending(c => c.Number).ToArrayAsync();
+            return values.Take(number);
         }
 
         public async Task<IEnumerable<Character>> GetCharacterRangeAsync(int beginning, int range)

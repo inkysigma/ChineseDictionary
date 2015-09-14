@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -58,7 +59,7 @@ namespace ChineseDictionary.Resources.Managers
         {
             if (string.IsNullOrEmpty(definition))
                 return new Idiom[0];
-            return await Context.Idioms.Where(c => c.Definitions.Any(x=> x.Key == definition)).ToArrayAsync();
+            return await Context.Idioms.Where(c => c.Definitions.Any(x=> x.Definition == definition)).ToArrayAsync();
         }
 
         public async Task<bool> UpdatePronunciationAsync(string idiom, string pronouncition)
@@ -73,9 +74,9 @@ namespace ChineseDictionary.Resources.Managers
             return true;
         }
 
-        public async Task<bool> UpdateDefinitionAsync(string idiom, KeyValuePair<string, string> definition)
+        public async Task<bool> UpdateDefinitionAsync(string idiom, DefinitionEntry definition)
         {
-            if (string.IsNullOrEmpty(idiom) || string.IsNullOrEmpty(definition.Value) || string.IsNullOrEmpty(definition.Key))
+            if (string.IsNullOrEmpty(idiom) || string.IsNullOrEmpty(definition.Definition) || string.IsNullOrEmpty(definition.PartOfSpeech))
                 return false;
             var c = await FindIdiomAsync(idiom);
             if (c == null)
@@ -116,7 +117,7 @@ namespace ChineseDictionary.Resources.Managers
             var c = await FindIdiomAsync(idiom);
             if (c == null)
                 return false;
-            c.Definitions.Remove(definition);
+            c.Definitions.Remove(c.Definitions.FirstOrDefault(x => x.Definition == definition));
             await Save();
             return true;
         }
@@ -155,6 +156,16 @@ namespace ChineseDictionary.Resources.Managers
         public async Task<IEnumerable<Idiom>> GetIdiomsAsync()
         {
             return await Context.Idioms.Where(c => true).ToArrayAsync();
+        }
+
+        public async Task<IEnumerable<Idiom>> GetLatestIdiomsAsync(int number)
+        {
+            if (number < 0)
+                return new Idiom[0];
+            var total = await CountAsync();
+            if (number > total)
+                number = total;
+            return await Context.Idioms.OrderByDescending(c => c.Number).Take(number).ToArrayAsync();
         }
 
         public async Task<IEnumerable<Idiom>> GetIdiomRangeAsync(int beginning, int range)

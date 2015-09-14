@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,7 +41,7 @@ namespace ChineseDictionary.Resources.Managers
         {
             if (string.IsNullOrEmpty(phrase) || string.IsNullOrEmpty(definition))
                 return null;
-            return await Context.Phrases.Where(c => c.Definition.Any(x => x.Key == definition)).ToArrayAsync();
+            return await Context.Phrases.Where(c => c.Definitions.Any(x => x.Definition == definition)).ToArrayAsync();
         }
 
         public async Task<bool> AddPhraseAsync(Phrase phrase)
@@ -70,14 +71,14 @@ namespace ChineseDictionary.Resources.Managers
             return true;
         }
 
-        public async Task<bool> UpdateDefinitionAsync(string phrase, KeyValuePair<string, string> definition)
+        public async Task<bool> UpdateDefinitionAsync(string phrase, DefinitionEntry definition)
         {
-            if (string.IsNullOrEmpty(phrase) || string.IsNullOrEmpty(definition.Key) || string.IsNullOrEmpty(definition.Value))
+            if (string.IsNullOrEmpty(phrase) || string.IsNullOrEmpty(definition.Definition) || string.IsNullOrEmpty(definition.PartOfSpeech))
                 return false;
             var c = await FindPhraseAsync(phrase);
             if (c == null)
                 return false;
-            c.Definition.Add(definition);
+            c.Definitions.Add(definition);
             await Save();
             return true;
         }
@@ -101,7 +102,7 @@ namespace ChineseDictionary.Resources.Managers
             var c = await FindPhraseAsync(phrase);
             if (c == null)
                 return false;
-            c.Definition.Remove(definition);
+            c.Definitions.Remove(c.Definitions.FirstOrDefault(x => x.Definition == definition));
             await Save();
             return true;
         }
@@ -140,6 +141,16 @@ namespace ChineseDictionary.Resources.Managers
         public async Task<IEnumerable<Phrase>> GetPhrasesAsync()
         {
             return await Context.Phrases.Where(c => true).ToArrayAsync();
+        }
+
+        public async Task<IEnumerable<Phrase>> GetLatestPhrasesAsync(int number)
+        {
+            if (number < 0)
+                return new Phrase[0];
+            var total = await CountAsync();
+            if (number > total)
+                number = total;
+            return await Context.Phrases.OrderByDescending(c => c.Number).Take(number).ToArrayAsync();
         }
 
         public async Task<IEnumerable<Phrase>> GetPhraseRangeAsync(int beginning, int range)

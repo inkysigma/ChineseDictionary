@@ -17,7 +17,7 @@ namespace ChineseDictionary.Resources.Models
 
         public string Story { get; set; }
 
-        public IDictionary<string, string> Definitions { get; set; }
+        public ICollection<DefinitionEntry> Definitions { get; set; }
 
         public IList<string> Usages { get; set; }
 

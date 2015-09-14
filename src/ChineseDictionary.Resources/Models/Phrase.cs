@@ -17,13 +17,13 @@ namespace ChineseDictionary.Resources.Models
 
         public virtual IList<Character> Characters { get; set; } 
 
-        public IDictionary<string, string> Definition { get; set; }
+        public ICollection<DefinitionEntry> Definitions { get; set; }
         
         public IList<string> Usages { get; set; }
 
         public bool Validate()
         {
-            return string.IsNullOrEmpty(Pronunciation) && string.IsNullOrEmpty(Word) && Definition.Any();
+            return string.IsNullOrEmpty(Pronunciation) && string.IsNullOrEmpty(Word) && Definitions.Any();
         }
     }
 }

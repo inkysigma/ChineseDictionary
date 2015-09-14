@@ -2,12 +2,14 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace ChineseDictionary.Resources.Models
 {
     public class Character
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [JsonIgnore]
         public int Number { get; set; }
 
         [Key]
@@ -15,13 +17,15 @@ namespace ChineseDictionary.Resources.Models
 
         public string Pronunciation { get; set; }
 
-        public IDictionary<string, string> Definitions { get; set; }
+        public ICollection<DefinitionEntry> Definitions { get; set; }
 
-        public IList<string> Usages { get; set; }
+        public ICollection<string> Usages { get; set; }
         
-        public virtual IList<Phrase>  Phrases { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Phrase>  Phrases { get; set; }
 
-        public virtual IList<Idiom> Idioms { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Idiom> Idioms { get; set; }
 
         public bool Validate()
         {
