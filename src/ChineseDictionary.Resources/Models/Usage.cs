@@ -6,7 +6,6 @@ namespace ChineseDictionary.Resources.Models
     {
         [Key]
         public int Number { get; set; }
-        public DefinitionEntry RelatedEntry { get; set; }
         public string Sentence { get; set; } 
     }
 }

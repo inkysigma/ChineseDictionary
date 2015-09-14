@@ -77,7 +77,7 @@ namespace ChineseDictionary.Resources.Managers
 
         public async Task<bool> UpdateUsageAsync(string character, Usage usage)
         {
-            if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(usage.Sentence) || usage.RelatedEntry == null)
+            if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(usage.Sentence))
                 return false;
             var c = await FindCharacterAsync(character);
             if (c == null)

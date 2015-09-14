@@ -8,7 +8,7 @@
         $scope.pronunciation = "";
         $scope.partsOfSpeech = [""];
         $scope.definitions = [""];
-        $scope.usages = [""];
+        $scope.usages = {};
         $scope.result = "";
         $scope.submit = function(isValid) {
             if (!isValid) {

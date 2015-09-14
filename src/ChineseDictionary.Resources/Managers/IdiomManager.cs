@@ -100,7 +100,7 @@ namespace ChineseDictionary.Resources.Managers
 
         public async Task<bool> UpdateUsageAsync(string idiom, Usage usage)
         {
-            if (string.IsNullOrEmpty(idiom) || string.IsNullOrEmpty(usage.Sentence) || usage.RelatedEntry == null)
+            if (string.IsNullOrEmpty(idiom) || string.IsNullOrEmpty(usage.Sentence))
                 return false;
             var c = await FindIdiomAsync(idiom);
             if (c == null)
