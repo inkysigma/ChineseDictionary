@@ -9,9 +9,9 @@ namespace ChineseDictionary.Models
         public string Type { get; set; }
         public string Word { get; set; }
         public ICollection<DefinitionEntry> Definitions { get; set; }
-        public IEnumerable<string> Usages { get; set; } 
+        public IEnumerable<Usage> Usages { get; set; } 
 
-        public Description(string word, ICollection<DefinitionEntry> definitions, IEnumerable<string> usages)
+        public Description(string word, ICollection<DefinitionEntry> definitions, IEnumerable<Usage> usages)
         {
             Word = word;
             Definitions = definitions;

@@ -114,7 +114,7 @@ namespace ChineseDictionary.Resources.Managers
             var c = await FindPhraseAsync(phrase);
             if (c == null)
                 return false;
-            c.Usages.Remove(usage);
+            c.Usages.Remove(c.Usages.FirstOrDefault(x => x.Sentence == usage));
             await Save();
             return true;
         }
