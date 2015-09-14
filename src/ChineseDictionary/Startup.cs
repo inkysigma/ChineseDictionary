@@ -30,8 +30,10 @@ namespace ChineseDictionary
                 new DictionaryContext(Configuration["Data:DefaultConnection"])
                 );
 
-            services.AddTransient<ICharacterManager, CharacterManager>(collection =>
-                new CharacterManager(collection.GetService<DictionaryContext>()));
+            services.AddTransient<ICharacterManager, CharacterManager>(collection => new CharacterManager(
+                collection
+                    .GetService
+                    <DictionaryContext>()));
 
             services.AddTransient<IIdiomManager, IdiomManager>(collection =>
                 new IdiomManager(collection.GetService<DictionaryContext>(), collection.GetService<ICharacterManager>()));

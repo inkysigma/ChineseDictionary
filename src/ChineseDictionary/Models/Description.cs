@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ChineseDictionary.Resources.Models;
 
 namespace ChineseDictionary.Models
@@ -19,8 +20,7 @@ namespace ChineseDictionary.Models
 
         public static Description Create(Character character)
         {
-            var description = new Description(character.Logograph,character.Definitions,
-                character.Usages)
+            var description = new Description(character.Logograph,character.Definitions, character.Usages)
             {
                 Type = "Character"
             };

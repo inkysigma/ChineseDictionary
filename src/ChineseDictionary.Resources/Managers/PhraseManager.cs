@@ -150,7 +150,13 @@ namespace ChineseDictionary.Resources.Managers
             var total = await CountAsync();
             if (number > total)
                 number = total;
-            return await Context.Phrases.OrderByDescending(c => c.Number).Take(number).ToArrayAsync();
+            var result = Context.Phrases.OrderByDescending(c => c.Number)
+                .Include(c => c.Definitions)
+                .Include(c => c.Usages)
+                .Take(number);
+             if (!await result.AnyAsync())
+                return new Phrase[0];
+             return await result.ToArrayAsync();
         }
 
         public async Task<IEnumerable<Phrase>> GetPhraseRangeAsync(int beginning, int range)

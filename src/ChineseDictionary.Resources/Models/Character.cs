@@ -17,12 +17,12 @@ namespace ChineseDictionary.Resources.Models
 
         public string Pronunciation { get; set; }
 
-        public ICollection<DefinitionEntry> Definitions { get; set; }
+        public virtual ICollection<DefinitionEntry> Definitions { get; set; }
 
-        public ICollection<string> Usages { get; set; }
+        public virtual ICollection<Usage> Usages { get; set; }
         
         [JsonIgnore]
-        public virtual ICollection<Phrase>  Phrases { get; set; }
+        public virtual ICollection<Phrase> Phrases { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<Idiom> Idioms { get; set; }

@@ -15,9 +15,12 @@
                 $scope.result = "The form has some incorrect fields.";
                 return;
             }
-            var build = {};
+            var build = [];
             for (var i = 0; i < $scope.definitions.length; i++) {
-                build[$scope.definitions[i]] = $scope.partsOfSpeech[i];
+                build.push({
+                    Definition: $scope.definitions[i],
+                    PartOfSpeech: $scope.partsOfSpeech[i]
+                });
             }
             $.ajax({
                 url: "/api/Character/AddCharacter",
@@ -37,8 +40,8 @@
                         $scope.partsOfSpeech = [""];
                         $scope.definitions = [""];
                         $scope.usages = [""];
-                        $scope.$digest();
                     }
+                    $scope.$digest();
                 },
                 error: function(jqXhr, status, response) {
                     $scope.result = status;

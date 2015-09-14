@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
+using System.Diagnostics;
 using ChineseDictionary.Resources.Configuration;
 using ChineseDictionary.Resources.Models;
 
@@ -15,7 +17,7 @@ namespace ChineseDictionary.Resources
 
         public DictionaryContext(string connection) : base(connection)
         {
-            
+            Database.Log = s => Debug.WriteLine(s);
         }
     }
 }

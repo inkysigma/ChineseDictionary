@@ -41,8 +41,14 @@ namespace ChineseDictionary.Resources.Managers
         public async Task<IEnumerable<Character>> FindCharactersByDefinitionAsync(string character, string definition)
         {
             if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(definition))
-                return null;
-            return await Context.Characters.Where(c => c.Definitions.Any(x => x.Definition == definition)).ToArrayAsync();
+                return new Character[0];
+            var result = 
+                    Context.Characters.Where(c => c.Definitions.Any(x => x.Definition == definition))
+                        .Include(c => c.Definitions)
+                        .Include(c => c.Usages);
+            if (!await result.AnyAsync())
+                return new Character[0];
+            return await result.ToArrayAsync();
         }
 
         public async Task<bool> UpdatePronunciationAsync(string character, string pronouncition)
@@ -137,8 +143,7 @@ namespace ChineseDictionary.Resources.Managers
             int total = await CountAsync();
             if (number > total)
                 number = total;
-            var values = await Context.Characters.OrderByDescending(c => c.Number).ToArrayAsync();
-            return values.Take(number);
+            return await Context.Characters.OrderByDescending(c => c.Number).Include(c => c.Usages).Take(number).ToArrayAsync();
         }
 
         public async Task<IEnumerable<Character>> GetCharacterRangeAsync(int beginning, int range)

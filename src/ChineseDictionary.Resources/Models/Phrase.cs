@@ -15,11 +15,11 @@ namespace ChineseDictionary.Resources.Models
         [Key]
         public string Word { get; set; }
 
-        public virtual IList<Character> Characters { get; set; } 
+        public virtual ICollection<Character> Characters { get; set; } 
 
-        public ICollection<DefinitionEntry> Definitions { get; set; }
+        public virtual ICollection<DefinitionEntry> Definitions { get; set; }
         
-        public IList<string> Usages { get; set; }
+        public virtual ICollection<Usage> Usages { get; set; }
 
         public bool Validate()
         {
