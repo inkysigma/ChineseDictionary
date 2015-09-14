@@ -12,16 +12,16 @@ app.controller("ListController",
     function($scope, $http) {
         $scope.descriptions = [];
         $scope.search = "";
-        $scope.searchBy =
-            $http.post("api/Dictionary/GetLatestRange")
+        $http.post("api/Dictionary/GetLatestRange")
             .then(function(response) {
                 if (response.data.length === 0) {
 
                     $scope.descriptions.push({
                         Word: "Nothing Here!",
-                        Definitions: {
-                            "Try adding a character!":"There is nothing on the server"
-                        }
+                        Definitions: [{
+                            Definition:"Try adding a character!",
+                            PartOfSpeech:"There is nothing on the server"
+                        }]
                     });
                 }
                 for (var i = 0; i < response.data.length; i++) {
@@ -48,7 +48,7 @@ app.config([
             templateUrl: "List.html",
             controller: "ListController"
         });
-        provider.when("/AddCharacter",
+        provider.when("/Character/AddCharacter",
         {
             templateUrl: "Characters/AddCharacter.html",
             controller: "AddCharacterController"

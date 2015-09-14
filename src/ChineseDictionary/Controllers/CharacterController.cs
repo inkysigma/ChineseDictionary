@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ChineseDictionary.Resources.Managers;
@@ -34,6 +35,13 @@ namespace ChineseDictionary.Controllers
             if (!await _characterManager.AddCharacterAsync(obj))
                 return "Character already exists";
             return "Success";
+        }
+
+        [HttpPost]
+        public async Task<Character> GetRandom()
+        {
+            var rng = new Random();
+            return await _characterManager.GetCharacter(rng.Next(await _characterManager.CountAsync()));
         }
     }
 }

@@ -143,7 +143,7 @@ namespace ChineseDictionary.Resources.Managers
             int total = await CountAsync();
             if (number > total)
                 number = total;
-            return await Context.Characters.OrderByDescending(c => c.Number).Include(c => c.Usages).Take(number).ToArrayAsync();
+            return await Context.Characters.OrderByDescending(c => c.Number).Take(number).ToArrayAsync();
         }
 
         public async Task<IEnumerable<Character>> GetCharacterRangeAsync(int beginning, int range)
