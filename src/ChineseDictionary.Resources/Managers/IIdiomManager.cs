@@ -16,7 +16,7 @@ namespace ChineseDictionary.Resources.Managers
         Task<bool> UpdatePronunciationAsync(string idiom, string pronouncition);
         Task<bool> UpdateStoryAsync(string idiom, string story);
         Task<bool> UpdateDefinitionAsync(string idiom, DefinitionEntry definition);
-        Task<bool> UpdateUsageAsync(string idiom, string usage);
+        Task<bool> UpdateUsageAsync(string idiom, Usage usage);
         Task<bool> RemoveDefinitionAsync(string idiom, string definition);
         Task<bool> RemoveUsageAsync(string idiom, string usage);
         Task<bool> RemoveIdiomAsync(string idiom);

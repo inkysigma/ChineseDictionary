@@ -98,9 +98,9 @@ namespace ChineseDictionary.Resources.Managers
             return true;
         }
 
-        public async Task<bool> UpdateUsageAsync(string idiom, string usage)
+        public async Task<bool> UpdateUsageAsync(string idiom, Usage usage)
         {
-            if (string.IsNullOrEmpty(idiom) || string.IsNullOrEmpty(usage))
+            if (string.IsNullOrEmpty(idiom) || string.IsNullOrEmpty(usage.Sentence) || usage.RelatedEntry == null)
                 return false;
             var c = await FindIdiomAsync(idiom);
             if (c == null)
@@ -129,7 +129,7 @@ namespace ChineseDictionary.Resources.Managers
             var c = await FindIdiomAsync(idiom);
             if (c == null)
                 return false;
-            c.Usages.Remove(usage);
+            c.Usages.Remove(c.Usages.FirstOrDefault(x => x.Sentence == usage));
             await Save();
             return true;
         }
