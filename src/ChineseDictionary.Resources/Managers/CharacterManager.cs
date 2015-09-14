@@ -75,7 +75,7 @@ namespace ChineseDictionary.Resources.Managers
             return true;
         }
 
-        public async Task<bool> UpdateUsageAsync(string character, string usage)
+        public async Task<bool> UpdateUsageAsync(string character, Usage usage)
         {
             if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(usage))
                 return false;
@@ -106,7 +106,7 @@ namespace ChineseDictionary.Resources.Managers
             var c = await FindCharacterAsync(character);
             if (c == null)
                 return false;
-            c.Usages.Remove(usage);
+            c.Usages.Remove(c.Usages.FirstOrDefault(x => x.Sentence == usage));
             await Save();
             return true;
         }
