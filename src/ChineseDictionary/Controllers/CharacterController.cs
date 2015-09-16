@@ -24,6 +24,8 @@ namespace ChineseDictionary.Controllers
         [HttpPost]
         public async Task<string> AddCharacter(Character obj)
         {
+            if (obj == null)
+                return "Nothing was filled out";
             if (!obj.Validate())
                 return "The data is not valid";
             if (obj.Phrases == null)
@@ -38,10 +40,29 @@ namespace ChineseDictionary.Controllers
         }
 
         [HttpPost]
+        public async Task<Character> GetCharacter(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return null;
+            return await _characterManager.FindCharacterAsync(id);
+        }
+
+        [HttpPost]
+        public async Task<bool> RemoveCharacter(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return false;
+            return await _characterManager.RemoveCharacterAsync(id);
+        }
+
+        [HttpPost]
         public async Task<Character> GetRandom()
         {
             var rng = new Random();
-            return await _characterManager.GetCharacter(rng.Next(await _characterManager.CountAsync()));
+            var total = await _characterManager.CountAsync();
+            if (total < 1)
+                return null;
+            return await _characterManager.GetCharacter(rng.Next(0, total));
         }
     }
 }
