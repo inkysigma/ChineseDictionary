@@ -1,16 +1,9 @@
-﻿<form class="search form-horizontal">
-    <div class="form-group">
-        <label for="search" class="col-sm-2 control-label">Search</label>
-        <div class="col-sm-6">
-            <input class="form-control" type="text" id="search" placeholder="Search"/>
+﻿<div class="container">
+    <div class="row">
+        <div class="column col-sm-4" ng-repeat="description in descriptions">
+            <h1 ng-bind="description.Word"></h1>
+            <p ng-repeat="definition in description.Definitions">{{definition.PartOfSpeech + " - " + definition.Definition}}</p>
         </div>
-    </div>
-</form>
-<div class="list-group">
-    <div class="item list-group-item col-sm-6" ng-repeat="description in descriptions">
-        <h1 ng-bind="description.Word"></h1>
-        <p ng-repeat="definition in description.Definitions">{{definition.PartOfSpeech + " - " + definition.Definition}}</p>
     </div>
 </div>
 <div class="clearfix"></div>
-<button class="btn btn-link" onclick="window.location = '/Character/AddCharacter'">Add a Character</button>

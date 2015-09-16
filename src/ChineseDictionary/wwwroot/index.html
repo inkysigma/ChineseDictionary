@@ -12,6 +12,20 @@
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="css/index.css"/>
 </head>
-<body ng-view>
+<body>
+<div class="list-group">
+    Characters:
+    <button class="btn btn-link" onclick="window.location = '/Characters/AddCharacter'">Add a Character</button>
+    <button class="btn btn-link" onclick="window.location = '/Characters/ReviewCharacter'">Review a Character</button>
+    <form class="search form-horizontal">
+        <div class="form-group">
+            <label for="search" class="col-sm-2 control-label">Search</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" id="search" placeholder="Search" />
+            </div>
+        </div>
+    </form>
+</div>
+<div ng-view></div>
 </body>
 </html>

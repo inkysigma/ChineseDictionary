@@ -1,7 +1,23 @@
 ﻿
-'use strict';
+"use strict";
 
-var app = angular.module('characterControllers', []);
+var app = angular.module("characterControllers", []);
+
+app.directive("limitmax", function () {
+    return {
+        require: "ngModel",
+        link: function (scope, element, attrs, ngModelCtrl) {
+            var maxlength = Number(attrs.limitmax);
+            function fromUser(text) {
+                if (text.length > maxlength) {
+                    return undefined;
+                }
+                return text;
+            }
+            ngModelCtrl.$parsers.push(fromUser);
+        }
+    };
+});
 
 app.controller("AddCharacterController", function ($scope) {
     $scope.character = "";
@@ -75,7 +91,7 @@ app.controller("AddCharacterController", function ($scope) {
     }
 });
 
-app.controller("ReviewCharacterController", function($scope, $http) {
+app.controller("ReviewCharacterController", function ($scope, $http, $routeParams) {
     $scope.character = {
         Logograph: "",
         Pronunciation: "",
@@ -84,10 +100,23 @@ app.controller("ReviewCharacterController", function($scope, $http) {
         Phrases: [],
         Idioms: []
     }
-    $http.post("api/Character/GetRandom").then(function(response) {
-        $scope.character = response.data;
-    }, function(response) {
-        $scope.Logograph = "Error";
-        $scope.Pronunciation = response.status + " - " + response.statusText;
-    });
+    $scope.showDefinitions = false;
+    if ($routeParams.char == null || $routeParams.char === "") {
+        $http.post("api/Character/GetRandom").then(function(response) {
+            $scope.character = response.data;
+        }, function(response) {
+            $scope.Logograph = "Error";
+            $scope.Pronunciation = response.status + " - " + response.statusText;
+        });
+    } else {
+        $http.post("api/Character/GetCharacter/" + $routeParams.char).then(function(response) {
+            $scope.character = response.data;
+        }, function(response) {
+            $scope.Logograph = "Error";
+            $scope.Pronunciation = response.status + " - " + response.statusText;
+        });
+    }
+    $scope.toggleDefinitions = function() {
+        $scope.showDefinitions = !$scope.showDefinitions;
+    }
 });

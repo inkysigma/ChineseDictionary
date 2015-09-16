@@ -18,10 +18,12 @@ app.controller("ListController",
 
                     $scope.descriptions.push({
                         Word: "Nothing Here!",
-                        Definitions: [{
-                            Definition:"Try adding a character!",
-                            PartOfSpeech:"There is nothing on the server"
-                        }]
+                        Definitions: [
+                            {
+                                Definition: "Try adding a character!",
+                                PartOfSpeech: "There is nothing on the server"
+                            }
+                        ]
                     });
                 }
                 for (var i = 0; i < response.data.length; i++) {
@@ -41,18 +43,27 @@ app.controller("ListController",
     });
 
 
-
 app.config([
     "$routeProvider", "$locationProvider", function(provider, location) {
         provider.when("/", {
             templateUrl: "List.html",
             controller: "ListController"
         });
-        provider.when("/Character/AddCharacter",
+        provider.when("/Characters/AddCharacter",
         {
             templateUrl: "Characters/AddCharacter.html",
             controller: "AddCharacterController"
         });
+        provider.when("/Characters/ReviewCharacter/:char?",
+        {
+            templateUrl: "Characters/ReviewCharacter.html",
+            controller: "ReviewCharacterController"
+        });
+        provider.when("/Phrases/AddPhrase", {
+            templateUrl: "Phrases/AddPhrase.html",
+            controller: "AddPhraseController"
+        });
+
 
         location.html5Mode(true);
     }

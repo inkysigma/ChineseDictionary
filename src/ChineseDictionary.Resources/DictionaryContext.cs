@@ -14,6 +14,7 @@ namespace ChineseDictionary.Resources
         public DbSet<Character> Characters { get; set; }
         public DbSet<Phrase> Phrases { get; set; }
         public DbSet<Idiom> Idioms { get; set; }
+        public DbSet<JournalEntry> JournalEntries { get; set; }
 
         public DictionaryContext(string connection) : base(connection)
         {
