@@ -119,7 +119,7 @@ namespace ChineseDictionary.Resources.Managers
             return true;
         }
 
-        public async Task<bool> RemoveIdiomAsync(string phrase)
+        public async Task<bool> RemovePhraseAsync(string phrase)
         {
             if (string.IsNullOrEmpty(phrase))
                 return false;

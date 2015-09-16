@@ -59,5 +59,13 @@ namespace ChineseDictionary.Controllers
                 return null;
             return await Manager.FindPhrasesByCharacterAsync(id);
         }
+
+        [HttpPost]
+        public async Task<bool> RemovePhrase(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return false;
+            return await Manager.RemovePhraseAsync(id);
+        }
     }
 }

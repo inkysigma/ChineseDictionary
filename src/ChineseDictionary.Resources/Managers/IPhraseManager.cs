@@ -15,7 +15,7 @@ namespace ChineseDictionary.Resources.Managers
         Task<bool> UpdateUsageAsync(string phrase, Usage usage);
         Task<bool> RemoveDefinitionAsync(string phrase, string definition);
         Task<bool> RemoveUsageAsync(string phrase, string usage);
-        Task<bool> RemoveIdiomAsync(string phrase);
+        Task<bool> RemovePhraseAsync(string phrase);
         Task<Phrase> GetPhrase(int number);
         Task<IEnumerable<Phrase>> GetPhrasesAsync();
         Task<IEnumerable<Phrase>> GetLatestPhrasesAsync(int number);
