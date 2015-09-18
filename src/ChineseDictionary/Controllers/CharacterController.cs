@@ -98,7 +98,7 @@ namespace ChineseDictionary.Controllers
         {
             var rng = new Random();
             var total = await _characterManager.CountAsync();
-            if (total < 1)
+            if (total <= 0)
                 return null;
             return await _characterManager.GetCharacter(rng.Next(0, total));
         }
