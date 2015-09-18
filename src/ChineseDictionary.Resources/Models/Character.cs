@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -12,10 +13,14 @@ namespace ChineseDictionary.Resources.Models
         [JsonIgnore]
         public int Number { get; set; }
 
+        public int Priority { get; set; }
+
         [Key]
         public string Logograph { get; set; }
 
         public string Pronunciation { get; set; }
+
+        public DateTime ReviewTime { get; set; }
 
         public virtual ICollection<DefinitionEntry> Definitions { get; set; }
 
@@ -70,6 +75,11 @@ namespace ChineseDictionary.Resources.Models
                 hashCode = (hashCode * 397) ^ (Idioms != null ? Idioms.GetHashCode() : 0);
                 return hashCode;
             }
+        }
+
+        public bool ShouldSerializeReviewTime()
+        {
+            return false;
         }
     }
 }

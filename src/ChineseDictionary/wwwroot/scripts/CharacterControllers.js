@@ -25,6 +25,7 @@ app.controller("AddCharacterController", function ($scope) {
     $scope.partsOfSpeech = [""];
     $scope.definitions = [""];
     $scope.usages = [""];
+    $scope.priority = 5;
     $scope.result = "";
     $scope.submit = function (isValid) {
         if (!isValid) {
@@ -52,7 +53,8 @@ app.controller("AddCharacterController", function ($scope) {
                 Logograph: $scope.character,
                 Pronunciation: $scope.pronunciation,
                 Definitions: build,
-                Usages: $scope.usages
+                Usages: $scope.usages,
+                Priority: $scope.priority
             },
             success: function (data) {
                 $scope.result = data.Message;
@@ -62,6 +64,7 @@ app.controller("AddCharacterController", function ($scope) {
                     $scope.partsOfSpeech = [""];
                     $scope.definitions = [""];
                     $scope.usages = [""];
+                    $scope.priority = 5;
                 }
                 $scope.$digest();
             },

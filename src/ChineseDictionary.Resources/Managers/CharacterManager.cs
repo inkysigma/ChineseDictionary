@@ -26,6 +26,12 @@ namespace ChineseDictionary.Resources.Managers
         {
             if (!character.Validate() || Context.Characters.Any(c => c.Logograph == character.Logograph))
                 return false;
+            if (character.Priority <= 3)
+                character.ReviewTime = DateTime.Now + TimeSpan.FromDays(4 - character.Priority);
+            if (character.Priority > 3 && character.Priority >= 5)
+                character.ReviewTime = DateTime.Now + TimeSpan.FromHours(6 - character.Priority);
+            if (character.Priority > 5)
+                character.ReviewTime = DateTime.Now + TimeSpan.FromMinutes(11 - character.Priority);
             Context.Characters.Add(character);
             await Save();
             return true;
