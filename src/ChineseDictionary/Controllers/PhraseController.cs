@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ChineseDictionary.Models;
 using ChineseDictionary.Resources.Managers;
 using ChineseDictionary.Resources.Models;
 using Microsoft.AspNet.Mvc;
@@ -19,28 +20,31 @@ namespace ChineseDictionary.Controllers
         }
 
         [HttpPost]
-        public async Task<string> AddPhrase(Phrase phrase)
+        public async Task<QueryResult> AddPhrase(Phrase phrase)
         {
             if (phrase == null)
-                return "Nothing was filled out";
+                return QueryResult.EmptyField(nameof(phrase));
             if (!phrase.Validate())
-                return "Data is invalid";
+                return QueryResult.InvalidField(nameof(phrase));
             if (phrase.Usages == null)
-                return "No usages were submitted";
+                return QueryResult.InvalidField(nameof(phrase));
             if (phrase.Definitions == null)
-                return "No definitions were submitted";
+                return QueryResult.InvalidField(nameof(phrase));
             if (await Manager.AddPhraseAsync(phrase))
-                return "Success";
-            return "Phrase already exists";
+                return QueryResult.Succeded;
+            return QueryResult.QueryFailed("The field already exists.");
         }
 
         [HttpPost]
-        public async Task<string> AddPhraseDefinition(DefinitionEntry entry)
+        public async Task<QueryResult> AddPhraseDefinition(string phrase, DefinitionEntry entry)
         {
             if (string.IsNullOrEmpty(entry.Definition))
-                return "No definition is supplied";
+                return QueryResult.EmptyField(nameof(entry));
             if (string.IsNullOrEmpty(entry.PartOfSpeech))
-                return "No part of speech is supplied";
+                return QueryResult.EmptyField(nameof(entry));
+            if (string.IsNullOrEmpty(phrase))
+                return QueryResult.EmptyField(nameof(phrase));
+            return QueryResult.QueryFailed(await Manager.UpdateDefinitionAsync(phrase, entry));
         }
 
         [HttpPost]
@@ -70,11 +74,11 @@ namespace ChineseDictionary.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> RemovePhrase(string id)
+        public async Task<QueryResult> RemovePhrase(string id)
         {
             if (string.IsNullOrEmpty(id))
-                return false;
-            return await Manager.RemovePhraseAsync(id);
+                return QueryResult.EmptyField(nameof(id));
+            return QueryResult.QueryFailed(await Manager.RemovePhraseAsync(id));
         }
     }
 }

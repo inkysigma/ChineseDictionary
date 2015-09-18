@@ -1,7 +1,7 @@
 ﻿
 "use strict";
 
-var app = angular.module("characterControllers", []);
+var app = angular.module("CharacterControllers", []);
 
 app.directive("limitmax", function () {
     return {

@@ -23,19 +23,19 @@ namespace ChineseDictionary.Controllers
         }
         
         [HttpPost]
-        public async Task<QueryResult> AddCharacter(Character obj)
+        public async Task<QueryResult> AddCharacter(Character character)
         {
-            if (obj == null)
-                return QueryResult.EmptyField(nameof(obj));
-            if (!obj.Validate())
-                return QueryResult.InvalidField(nameof(obj));
-            if (obj.Phrases == null)
-                obj.Phrases = new List<Phrase>();
-            if (obj.Idioms == null)
-                obj.Idioms = new List<Idiom>();
-            if (!obj.Usages.Any())
-                return QueryResult.InvalidField(nameof(obj));
-            if (!await _characterManager.AddCharacterAsync(obj))
+            if (character == null)
+                return QueryResult.EmptyField(nameof(character));
+            if (!character.Validate())
+                return QueryResult.InvalidField(nameof(character));
+            if (character.Phrases == null)
+                character.Phrases = new List<Phrase>();
+            if (character.Idioms == null)
+                character.Idioms = new List<Idiom>();
+            if (!character.Usages.Any())
+                return QueryResult.InvalidField(nameof(character));
+            if (!await _characterManager.AddCharacterAsync(character))
                 return QueryResult.QueryFailed("The character already exists");
             return QueryResult.Succeded;
         }

@@ -6,7 +6,7 @@ var SearchType = {
 }
 
 /// <reference path="" />
-var app = angular.module("DictionaryModule", ["ngRoute", "characterControllers"]);
+var app = angular.module("DictionaryModule", ["ngRoute", "CharacterControllers"]);
 
 app.controller("ListController",
     function($scope, $http) {
@@ -59,17 +59,11 @@ app.config([
             templateUrl: "Characters/ReviewCharacter.html",
             controller: "ReviewCharacterController"
         });
-        provider.when("/Character/EditCharacter/:id",
-        {
-            templateUrl: "Characters/EditCharacter.html",
-            controller: "EditCharacterController"
-        });
-
-
         provider.when("/Phrases/AddPhrase", {
             templateUrl: "Phrases/AddPhrase.html",
             controller: "AddPhraseController"
         });
+
 
         location.html5Mode(true);
     }
