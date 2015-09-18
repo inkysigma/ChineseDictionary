@@ -1,11 +1,11 @@
-﻿
-"use strict";
+﻿"use strict";
 
 var SearchType = {
     Definition: 0,
     Word: 1
 }
 
+/// <reference path="" />
 var app = angular.module("DictionaryModule", ["ngRoute", "characterControllers"]);
 
 app.controller("ListController",
@@ -59,11 +59,17 @@ app.config([
             templateUrl: "Characters/ReviewCharacter.html",
             controller: "ReviewCharacterController"
         });
+        provider.when("/Character/EditCharacter/:id",
+        {
+            templateUrl: "Characters/EditCharacter.html",
+            controller: "EditCharacterController"
+        });
+
+
         provider.when("/Phrases/AddPhrase", {
             templateUrl: "Phrases/AddPhrase.html",
             controller: "AddPhraseController"
         });
-
 
         location.html5Mode(true);
     }

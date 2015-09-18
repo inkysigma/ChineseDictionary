@@ -102,12 +102,12 @@ app.controller("ReviewCharacterController", function ($scope, $http, $routeParam
     }
     $scope.showDefinitions = false;
     if ($routeParams.char == null || $routeParams.char === "") {
-        $http.post("api/Character/GetRandom").then(function(response) {
-            $scope.character = response.data;
-        }, function(response) {
-            $scope.Logograph = "Error";
-            $scope.Pronunciation = response.status + " - " + response.statusText;
-        });
+    $http.post("api/Character/GetRandom").then(function(response) {
+        $scope.character = response.data;
+    }, function(response) {
+        $scope.Logograph = "Error";
+        $scope.Pronunciation = response.status + " - " + response.statusText;
+    });
     } else {
         $http.post("api/Character/GetCharacter/" + $routeParams.char).then(function(response) {
             $scope.character = response.data;
@@ -119,4 +119,8 @@ app.controller("ReviewCharacterController", function ($scope, $http, $routeParam
     $scope.toggleDefinitions = function() {
         $scope.showDefinitions = !$scope.showDefinitions;
     }
+});
+
+app.controller("EditCharacterController", function($scope, $http) {
+   $scope.character;
 });
