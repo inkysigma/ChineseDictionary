@@ -53,6 +53,18 @@ namespace ChineseDictionary.Controllers
         }
 
         [HttpPost]
+        public async Task<QueryResult> AddCharacterDefinition(string character, DefinitionEntry entry)
+        {
+            if (string.IsNullOrEmpty(character))
+                return QueryResult.EmptyField(nameof(character));
+            if (entry == null)
+                return QueryResult.EmptyField(nameof(entry));
+            if (string.IsNullOrEmpty(entry.Definition) || string.IsNullOrEmpty(entry.PartOfSpeech))
+                return QueryResult.InvalidField(nameof(entry));
+            return QueryResult.QueryFailed(await _characterManager.UpdateDefinitionAsync(character, entry));
+        }
+
+        [HttpPost]
         public async Task<Character> GetCharacter(string id)
         {
             if (string.IsNullOrEmpty(id))
