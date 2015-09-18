@@ -91,3 +91,7 @@ app.controller("ReviewCharacterController", function($scope, $http) {
         $scope.Pronunciation = response.status + " - " + response.statusText;
     });
 });
+
+app.controller("EditCharacterController", function($scope, $http) {
+   $scope.character;
+});
