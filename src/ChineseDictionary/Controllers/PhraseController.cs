@@ -35,6 +35,15 @@ namespace ChineseDictionary.Controllers
         }
 
         [HttpPost]
+        public async Task<string> AddPhraseDefinition(DefinitionEntry entry)
+        {
+            if (string.IsNullOrEmpty(entry.Definition))
+                return "No definition is supplied";
+            if (string.IsNullOrEmpty(entry.PartOfSpeech))
+                return "No part of speech is supplied";
+        }
+
+        [HttpPost]
         public async Task<Phrase> GetRandomPhrase()
         {
             var rng = new Random();

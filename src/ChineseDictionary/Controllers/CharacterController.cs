@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using ChineseDictionary.Models;
 using ChineseDictionary.Resources.Managers;
 using ChineseDictionary.Resources.Models;
 using Microsoft.AspNet.Mvc;
@@ -22,21 +23,21 @@ namespace ChineseDictionary.Controllers
         }
         
         [HttpPost]
-        public async Task<string> AddCharacter(Character obj)
+        public async Task<QueryResult> AddCharacter(Character obj)
         {
             if (obj == null)
-                return "Nothing was filled out";
+                return QueryResult.EmptyField("Nothing was filled out");
             if (!obj.Validate())
-                return "The data is not valid";
+                return QueryResult.InvalidField(nameof(obj));
             if (obj.Phrases == null)
                 obj.Phrases = new List<Phrase>();
             if (obj.Idioms == null)
                 obj.Idioms = new List<Idiom>();
             if (!obj.Usages.Any())
-                return "There aren't any examples";
+                return QueryResult.InvalidField(nameof(obj));
             if (!await _characterManager.AddCharacterAsync(obj))
-                return "Character already exists";
-            return "Success";
+                return QueryResult.QueryFailed("The character already exists");
+            return QueryResult.Succeded;
         }
 
         [HttpPost]
@@ -47,12 +48,13 @@ namespace ChineseDictionary.Controllers
             return await _characterManager.FindCharacterAsync(id);
         }
 
+
         [HttpPost]
-        public async Task<bool> RemoveCharacter(string id)
+        public async Task<QueryResult> RemoveCharacter(string character)
         {
-            if (string.IsNullOrEmpty(id))
-                return false;
-            return await _characterManager.RemoveCharacterAsync(id);
+            if (string.IsNullOrEmpty(character))
+                return QueryResult.EmptyField(nameof(character));
+            return QueryResult.QueryFailed(await _characterManager.RemoveCharacterAsync(character));
         }
 
         [HttpPost]
