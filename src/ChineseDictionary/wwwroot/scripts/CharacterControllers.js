@@ -55,8 +55,8 @@ app.controller("AddCharacterController", function ($scope) {
                 Usages: $scope.usages
             },
             success: function (data) {
-                $scope.result = data;
-                if (data === "Success") {
+                $scope.result = data.Message;
+                if (data.Status === 0) {
                     $scope.character = "";
                     $scope.pronunciation = "";
                     $scope.partsOfSpeech = [""];
@@ -85,8 +85,7 @@ app.controller("AddCharacterController", function ($scope) {
     }
     $scope.removeUsage = function () {
         if ($scope.usages.length !== 1) {
-            $scope.definitions.pop();
-            $scope.partsOfSpeech.pop();
+            $scope.usages.pop();
         }
     }
 });
@@ -121,6 +120,6 @@ app.controller("ReviewCharacterController", function ($scope, $http, $routeParam
     }
 });
 
-app.controller("EditCharacterController", function($scope, $http) {
+app.controller("EditCharacterController", function($scope, $http, $routeParams) {
    $scope.character;
 });
