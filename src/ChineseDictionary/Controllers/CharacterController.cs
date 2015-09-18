@@ -26,7 +26,7 @@ namespace ChineseDictionary.Controllers
         public async Task<QueryResult> AddCharacter(Character obj)
         {
             if (obj == null)
-                return QueryResult.EmptyField("Nothing was filled out");
+                return QueryResult.EmptyField(nameof(obj));
             if (!obj.Validate())
                 return QueryResult.InvalidField(nameof(obj));
             if (obj.Phrases == null)
@@ -38,6 +38,18 @@ namespace ChineseDictionary.Controllers
             if (!await _characterManager.AddCharacterAsync(obj))
                 return QueryResult.QueryFailed("The character already exists");
             return QueryResult.Succeded;
+        }
+
+        [HttpPost]
+        public async Task<QueryResult> AddCharacterUsage(string character, Usage usage)
+        {
+            if (usage == null)
+                return QueryResult.EmptyField(nameof(usage));
+            if (string.IsNullOrEmpty(character))
+                return QueryResult.EmptyField(nameof(character));
+            if (usage.Sentence == null)
+                return QueryResult.InvalidField(nameof(usage));
+            return QueryResult.QueryFailed(await _characterManager.UpdateUsageAsync(character, usage));
         }
 
         [HttpPost]
