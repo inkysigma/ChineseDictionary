@@ -87,6 +87,20 @@ namespace ChineseDictionary.Resources.Managers
             return true;
         }
 
+        public async Task<bool> UpdateCharacterAsync(Character character)
+        {
+            if (character == null || !character.Validate())
+                return false;
+            var original = await FindCharacterAsync(character.Logograph);
+            if (original == null)
+                return false;
+            character.Number = original.Number;
+            Context.Characters.Attach(character);
+            Context.Entry(character).State = EntityState.Modified;
+            await Save();
+            return true;
+        }
+
         public async Task<bool> RemoveDefinitionAsync(string character, string definition)
         {
             if (string.IsNullOrEmpty(character) || string.IsNullOrEmpty(definition))

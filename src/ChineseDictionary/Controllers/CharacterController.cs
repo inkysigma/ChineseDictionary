@@ -65,6 +65,18 @@ namespace ChineseDictionary.Controllers
         }
 
         [HttpPost]
+        public async Task<QueryResult> UpdateCharacter(string character, Character model)
+        {
+            if (string.IsNullOrEmpty(character))
+                return QueryResult.EmptyField(nameof(character));
+            if (model == null)
+                return QueryResult.EmptyField(nameof(model));
+            if (!model.Validate())
+                return QueryResult.InvalidField(nameof(model));
+            return QueryResult.QueryFailed(await _characterManager.UpdateCharacterAsync(model));
+        }
+
+        [HttpPost]
         public async Task<Character> GetCharacter(string id)
         {
             if (string.IsNullOrEmpty(id))
