@@ -48,6 +48,18 @@ namespace ChineseDictionary.Controllers
         }
 
         [HttpPost]
+        public async Task<QueryResult> AddPhraseUsage(string phrase, Usage usage)
+        {
+            if (string.IsNullOrEmpty(phrase))
+                return QueryResult.EmptyField(nameof(phrase));
+            if (usage == null)
+                return QueryResult.EmptyField(nameof(usage));
+            if (string.IsNullOrEmpty(usage.Sentence))
+                return QueryResult.InvalidField(nameof(usage));
+            return QueryResult.QueryFailed(await Manager.UpdateUsageAsync(phrase, usage));
+        }
+
+        [HttpPost]
         public async Task<Phrase> GetRandomPhrase()
         {
             var rng = new Random();

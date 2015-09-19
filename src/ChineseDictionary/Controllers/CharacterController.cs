@@ -100,7 +100,8 @@ namespace ChineseDictionary.Controllers
             var total = await _characterManager.CountAsync();
             if (total <= 0)
                 return null;
-            return await _characterManager.GetCharacter(rng.Next(0, total));
+            int random = rng.Next(0, total);
+            return await _characterManager.GetCharacterByListAsync(random);
         }
     }
 }

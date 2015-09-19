@@ -42,7 +42,7 @@ namespace ChineseDictionary.Controllers
             if (type == 2)
                 return
                     Description.Create(await _phraseManager.GetPhrase(random.Next(0, await _phraseManager.CountAsync())));
-            return Description.Create(await _characterManager.GetCharacter(random.Next(0, await _characterManager.CountAsync())));
+            return Description.Create(await _characterManager.GetCharacterAsync(random.Next(0, await _characterManager.CountAsync())));
         }
 
         public async Task<IEnumerable<Description>> SearchMultiple(string id)

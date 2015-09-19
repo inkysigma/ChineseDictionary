@@ -144,11 +144,18 @@ namespace ChineseDictionary.Resources.Managers
         }
 
 
-        public async Task<Character> GetCharacter(int number)
+        public async Task<Character> GetCharacterAsync(int number)
         {
             if (number < 0)
                 return null;
             return await Context.Characters.Where(c => c.Number == number).FirstOrDefaultAsync();
+        }
+
+        public async Task<Character> GetCharacterByListAsync(int number)
+        {
+            if (number < 0)
+                return null;
+            return await Context.Characters.OrderBy(c => c.Number).Skip(number).Take(1).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Character>> GetCharactersAsync()

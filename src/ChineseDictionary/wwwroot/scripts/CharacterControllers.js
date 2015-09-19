@@ -8,13 +8,9 @@ app.directive("limitmax", function () {
         require: "ngModel",
         link: function (scope, element, attrs, ngModelCtrl) {
             var maxlength = Number(attrs.limitmax);
-            function fromUser(text) {
-                if (text.length > maxlength) {
-                    return undefined;
-                }
-                return text;
+            ngModelCtrl.$validators.limitmax = function(modelValue) {
+                return modelValue.length <= maxlength;
             }
-            ngModelCtrl.$parsers.push(fromUser);
         }
     };
 });
@@ -123,6 +119,7 @@ app.controller("ReviewCharacterController", function ($scope, $http, $routeParam
     }
 });
 
-app.controller("EditCharacterController", function($scope, $http, $routeParams) {
+app.controller("EditCharacterController", function ($scope, $http, $routeParams) {
+    if ($routeParams )
    $scope.character;
 });

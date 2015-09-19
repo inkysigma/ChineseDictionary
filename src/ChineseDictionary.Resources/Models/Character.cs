@@ -39,7 +39,9 @@ namespace ChineseDictionary.Resources.Models
 
         public static bool operator ==(Character init, string character)
         {
-            return init != null && init.Logograph == character;
+            if (string.IsNullOrEmpty(character) || init?.Logograph == null)
+                return false;
+            return init.Logograph == character;
         }
 
         public static bool operator !=(Character init, string character)
