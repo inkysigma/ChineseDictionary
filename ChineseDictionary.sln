@@ -14,6 +14,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ChineseDictionary", "src\Ch
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ChineseDictionary.Resources", "src\ChineseDictionary.Resources\ChineseDictionary.Resources.xproj", "{FAE41DB5-28AB-454A-815D-36E6B7A55A60}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ChineseDictionary.Migrate", "src\ChineseDictionary.Migrate\ChineseDictionary.Migrate.xproj", "{61A0D207-146A-4CC5-99E6-1C6B84F21405}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,10 @@ Global
 		{FAE41DB5-28AB-454A-815D-36E6B7A55A60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAE41DB5-28AB-454A-815D-36E6B7A55A60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAE41DB5-28AB-454A-815D-36E6B7A55A60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61A0D207-146A-4CC5-99E6-1C6B84F21405}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61A0D207-146A-4CC5-99E6-1C6B84F21405}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61A0D207-146A-4CC5-99E6-1C6B84F21405}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61A0D207-146A-4CC5-99E6-1C6B84F21405}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -35,5 +41,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{79C7F3BC-EDA1-4A1B-822E-92394987407C} = {47D8A6F2-EBA4-4EAB-847C-CF8A4CB3BB49}
 		{FAE41DB5-28AB-454A-815D-36E6B7A55A60} = {47D8A6F2-EBA4-4EAB-847C-CF8A4CB3BB49}
+		{61A0D207-146A-4CC5-99E6-1C6B84F21405} = {47D8A6F2-EBA4-4EAB-847C-CF8A4CB3BB49}
 	EndGlobalSection
 EndGlobal

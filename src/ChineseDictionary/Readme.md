@@ -1,0 +1,1 @@
+﻿Temporarily, Migrate.bat will be used to migrate the database.
