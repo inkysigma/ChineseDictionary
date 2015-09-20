@@ -20,6 +20,7 @@ namespace ChineseDictionary.Resources.Models
 
         public string Pronunciation { get; set; }
 
+        [NotMapped]
         public DateTime ReviewTime { get; set; }
 
         public virtual ICollection<DefinitionEntry> Definitions { get; set; }

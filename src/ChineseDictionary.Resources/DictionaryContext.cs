@@ -12,5 +12,12 @@ namespace ChineseDictionary.Resources
         public DbSet<Idiom> Idioms { get; set; }
         public DbSet<JournalEntry> JournalEntries { get; set; }
         public DbSet<GrammarNote> GrammarNotes { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Character>().Ignore(c => c.ReviewTime);
+            builder.Entity<Idiom>().Ignore(c => c.ReviewTime);
+            builder.Entity<Phrase>().Ignore(c => c.ReviewTime);
+        }
     }
 }

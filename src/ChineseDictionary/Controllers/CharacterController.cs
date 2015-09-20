@@ -16,7 +16,7 @@ namespace ChineseDictionary.Controllers
         {
             _characterManager = characterManager;
         }
-        
+
         [HttpPost]
         public async Task<QueryResult> AddCharacter(Character character)
         {

@@ -22,10 +22,10 @@ namespace ChineseDictionary.Migrate
             stream.Dispose();
             var namespaceIndexLine = text.IndexOf("namespace ChineseDictionary.Resources");
             text[namespaceIndexLine] = "namespace ChineseDictionary.temp";
-            text.Insert(text.Count - 3, "\tprotected override void OnConfiguring(DbContextOptionsBuilder builder)");
-            text.Insert(text.Count - 3, "\t{");
-            text.Insert(text.Count - 3, "\t\tbuilder.UseNpgsql(\"Server = localhost; Database = chinese; User Id = default; Password =public\");");
-            text.Insert(text.Count - 3, "\t}");
+            text.Insert(text.Count - 2, "\t\tprotected override void OnConfiguring(DbContextOptionsBuilder builder)");
+            text.Insert(text.Count - 2, "\t\t{");
+            text.Insert(text.Count - 2, "\t\t\tbuilder.UseNpgsql(\"Server=localhost;Database=chinese;User Id=default;Password=public\");");
+            text.Insert(text.Count - 2, "\t\t}");
             var writer = new StreamWriter("temp/DictionaryContext.cs");
             foreach (var t in text)
             {
@@ -42,8 +42,13 @@ namespace ChineseDictionary.Migrate
             info.RedirectStandardError = true;
             info.UseShellExecute = false;
             var add = Process.Start(info);
-            while (!add.StandardError.EndOfStream)
-                Console.WriteLine(await add.StandardError.ReadLineAsync());
+            while (!add.StandardError.EndOfStream || !add.StandardOutput.EndOfStream)
+            {
+                if (!add.StandardError.EndOfStream)
+                    Console.WriteLine(await add.StandardError.ReadLineAsync());
+                if (!add.StandardOutput.EndOfStream)
+                    Console.WriteLine(await add.StandardOutput.ReadLineAsync());
+            }
             add.WaitForExit();
             info = new ProcessStartInfo("dnx", "ef database update");
             info.CreateNoWindow = true;
