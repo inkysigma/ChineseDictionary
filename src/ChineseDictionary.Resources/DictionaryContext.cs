@@ -12,5 +12,10 @@ namespace ChineseDictionary.Resources
         public DbSet<Idiom> Idioms { get; set; }
         public DbSet<JournalEntry> JournalEntries { get; set; }
         public DbSet<GrammarNote> GrammarNotes { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder builder)
+        {
+            builder.UseNpgsql("Server=localhost;Database=chinese;User Id=default;Password=public");
+        }
     }
 }
