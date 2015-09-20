@@ -2,6 +2,7 @@
 using ChineseDictionary.Resources.Managers;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
+using Microsoft.Data.Entity;
 using Microsoft.Dnx.Runtime;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
@@ -25,9 +26,12 @@ namespace ChineseDictionary
         {
             services.AddMvc();
 
-            services.AddTransient(collection =>
-                new DictionaryContext(Configuration["Data:DefaultConnection"])
-                );
+            services.AddEntityFramework()
+                .AddNpgsql()
+                .AddDbContext<DictionaryContext>(options =>
+                {
+                    options.UseNpgsql(Configuration["Data:ConnectionStrings:Postgres"]);
+                });
 
             services.AddTransient<ICharacterManager, CharacterManager>(collection => new CharacterManager(
                 collection
