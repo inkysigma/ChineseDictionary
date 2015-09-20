@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.0.0-*",
+  "version": "1.0.0",
   "description": "ChineseDictionary.Migrate Console Application",
   "authors": [ "inkyb_000" ],
   "tags": [ "" ],
@@ -14,16 +14,6 @@
   },
 
   "frameworks": {
-    "dnx451": { },
-    "dnxcore50": {
-      "dependencies": {
-        "System.Collections": "4.0.10-beta-23019",
-        "System.Console": "4.0.0-beta-23019",
-        "System.Linq": "4.0.0-beta-23019",
-        "System.Threading": "4.0.10-beta-23019",
-        "Microsoft.CSharp": "4.0.0-beta-23019",
-        "System.IO": "4.0.10"
-      }
-    }
+    "dnx451": { }
   }
 }

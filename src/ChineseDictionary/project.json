@@ -14,7 +14,8 @@
     "EntityFramework.Core": "7.0.0-beta7",
     "EntityFramework7.Npgsql": "3.1.0-beta7-1",
 
-    "ChineseDictionary.Resources": "1.0.0"
+    "ChineseDictionary.Resources": "1.0.0",
+    "ChineseDictionary.Migrate": "1.0.0"
   },
 
   "scripts": {
@@ -25,7 +26,8 @@
 
   "commands": {
     "web": "Microsoft.AspNet.Hosting --config hosting.ini",
-    "ef": "EntityFramework.Commands"
+    "ef": "EntityFramework.Commands",
+    "migrate": "ChineseDictionary.Migrate"
   },
 
   "frameworks": {
