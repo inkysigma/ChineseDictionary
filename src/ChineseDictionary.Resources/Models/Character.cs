@@ -11,26 +11,26 @@ namespace ChineseDictionary.Resources.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [JsonIgnore]
-        public int Number { get; }
+        public int Number { get; set; }
 
         public int Priority { get; set; }
 
         [Key]
-        public string Logograph { get; }
+        public string Logograph { get; set; }
 
-        public string Pronunciation { get; }
+        public string Pronunciation { get; set; }
 
         public DateTime ReviewTime { get; set; }
 
-        public virtual ICollection<DefinitionEntry> Definitions { get; }
+        public virtual ICollection<DefinitionEntry> Definitions { get; set; }
 
-        public virtual ICollection<Usage> Usages { get; }
+        public virtual ICollection<Usage> Usages { get; set; }
         
         [JsonIgnore]
-        public virtual ICollection<Phrase> Phrases { get; }
+        public virtual ICollection<Phrase> Phrases { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<Idiom> Idioms { get; }
+        public virtual ICollection<Idiom> Idioms { get; set; }
 
         public bool Validate()
         {
