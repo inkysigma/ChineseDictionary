@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using ChineseDictionary.Resources.Models;
 
 namespace ChineseDictionary.Models

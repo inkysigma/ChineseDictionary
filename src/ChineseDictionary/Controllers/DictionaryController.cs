@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using ChineseDictionary.Models;
 using ChineseDictionary.Resources.Managers;
-using ChineseDictionary.Resources.Models;
 using Microsoft.AspNet.Mvc;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860

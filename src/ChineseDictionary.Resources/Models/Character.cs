@@ -11,26 +11,26 @@ namespace ChineseDictionary.Resources.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [JsonIgnore]
-        public int Number { get; set; }
+        public int Number { get; }
 
         public int Priority { get; set; }
 
         [Key]
-        public string Logograph { get; set; }
+        public string Logograph { get; }
 
-        public string Pronunciation { get; set; }
+        public string Pronunciation { get; }
 
         public DateTime ReviewTime { get; set; }
 
-        public virtual ICollection<DefinitionEntry> Definitions { get; set; }
+        public virtual ICollection<DefinitionEntry> Definitions { get; }
 
-        public virtual ICollection<Usage> Usages { get; set; }
+        public virtual ICollection<Usage> Usages { get; }
         
         [JsonIgnore]
-        public virtual ICollection<Phrase> Phrases { get; set; }
+        public virtual ICollection<Phrase> Phrases { get; }
 
         [JsonIgnore]
-        public virtual ICollection<Idiom> Idioms { get; set; }
+        public virtual ICollection<Idiom> Idioms { get; }
 
         public bool Validate()
         {
@@ -60,7 +60,7 @@ namespace ChineseDictionary.Resources.Models
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((Character)obj);
         }
 

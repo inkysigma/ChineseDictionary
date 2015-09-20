@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ChineseDictionary.Models;
 using ChineseDictionary.Resources.Managers;
 using ChineseDictionary.Resources.Models;
 using Microsoft.AspNet.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace ChineseDictionary.Controllers
 {

@@ -5,7 +5,6 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.Dnx.Runtime;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
-using MySql.Data.MySqlClient;
 
 namespace ChineseDictionary
 {

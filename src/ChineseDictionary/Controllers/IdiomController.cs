@@ -1,11 +1,9 @@
-using System;
-using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using ChineseDictionary.Models;
 using ChineseDictionary.Resources.Managers;
 using ChineseDictionary.Resources.Models;
 using Microsoft.AspNet.Mvc;
-using System.Linq;
 
 namespace ChineseDictionary.Controllers {
     public class IdiomController : Controller
