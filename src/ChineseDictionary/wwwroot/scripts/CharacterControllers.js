@@ -21,7 +21,7 @@ app.controller("AddCharacterController", function ($scope) {
     $scope.partsOfSpeech = [""];
     $scope.definitions = [""];
     $scope.usages = [""];
-    $scope.priority = 5;
+    $scope.priority = "5";
     $scope.result = "";
     $scope.submit = function (isValid) {
         if (!isValid) {
@@ -29,15 +29,17 @@ app.controller("AddCharacterController", function ($scope) {
             return;
         }
         var build = [];
-        for (var i = 0; i < $scope.definitions.length; i++) {
+        var i;
+        for (i = 0; i < $scope.definitions.length; i++) {
             build.push({
                 Definition: $scope.definitions[i],
                 PartOfSpeech: $scope.partsOfSpeech[i]
             });
         }
         var usageBuilt = [];
-        for (var i = 0; i < $scope.usages.length; i++) {
+        for (i = 0; i < $scope.usages.length; i++) {
             usageBuilt.push({
+                Number: i,
                 Sentence: $scope.usages[i]
             });
         }
@@ -49,8 +51,8 @@ app.controller("AddCharacterController", function ($scope) {
                 Logograph: $scope.character,
                 Pronunciation: $scope.pronunciation,
                 Definitions: build,
-                Usages: $scope.usages,
-                Priority: $scope.priority
+                Usages: usageBuilt,
+                Priority: parseInt($scope.priority)
             },
             success: function (data) {
                 $scope.result = data.Message;
@@ -60,7 +62,7 @@ app.controller("AddCharacterController", function ($scope) {
                     $scope.partsOfSpeech = [""];
                     $scope.definitions = [""];
                     $scope.usages = [""];
-                    $scope.priority = 5;
+                    $scope.priority = "5";
                 }
                 $scope.$digest();
             },

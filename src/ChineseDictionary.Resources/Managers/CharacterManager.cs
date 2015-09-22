@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using ChineseDictionary.Resources.ModelExtentions;
 using ChineseDictionary.Resources.Models;
 using Microsoft.Data.Entity;
 
@@ -27,7 +29,7 @@ namespace ChineseDictionary.Resources.Managers
                 return false;
             if (character.Priority <= 3)
                 character.ReviewTime = DateTime.Now + TimeSpan.FromDays(4 - character.Priority);
-            if (character.Priority > 3 && character.Priority >= 5)
+            if (character.Priority > 3 && character.Priority <= 5)
                 character.ReviewTime = DateTime.Now + TimeSpan.FromHours(6 - character.Priority);
             if (character.Priority > 5)
                 character.ReviewTime = DateTime.Now + TimeSpan.FromMinutes(11 - character.Priority);
@@ -169,7 +171,14 @@ namespace ChineseDictionary.Resources.Managers
             int total = await CountAsync();
             if (number > total)
                 number = total;
-            return await Context.Characters.OrderByDescending(c => c.Number).Take(number).ToArrayAsync();
+            try
+            {
+                return await Context.Characters.OrderByDescending(c => c.Number).Take(number).ToArrayAsync();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public async Task<IEnumerable<Character>> GetCharacterRangeAsync(int beginning, int range)

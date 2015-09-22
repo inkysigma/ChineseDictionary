@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using Microsoft.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using ChineseDictionary.Resources.ModelExtentions;
 using ChineseDictionary.Resources.Models;
+using Microsoft.Data.Entity;
 
 namespace ChineseDictionary.Resources.Managers
 {

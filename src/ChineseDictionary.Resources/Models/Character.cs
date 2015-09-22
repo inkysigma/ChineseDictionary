@@ -7,8 +7,9 @@ using Newtonsoft.Json;
 
 namespace ChineseDictionary.Resources.Models
 {
-    public class Character
+    public partial class Character
     {
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [JsonIgnore]
         public int Number { get; set; }
@@ -20,8 +21,7 @@ namespace ChineseDictionary.Resources.Models
 
         public string Pronunciation { get; set; }
 
-        [NotMapped]
-        public DateTime ReviewTime { get; set; }
+        public ReviewDateTime ReviewTime { get; set; }
 
         public virtual ICollection<DefinitionEntry> Definitions { get; set; }
 
@@ -33,11 +33,6 @@ namespace ChineseDictionary.Resources.Models
         [JsonIgnore]
         public virtual ICollection<Idiom> Idioms { get; set; }
 
-        public bool Validate()
-        {
-            return !string.IsNullOrEmpty(Pronunciation) && !string.IsNullOrEmpty(Logograph) && Definitions.Any() && Logograph.Length == 1;
-        }
-
         public static bool operator ==(Character init, string character)
         {
             if (string.IsNullOrEmpty(character) || init?.Logograph == null)
@@ -48,41 +43,6 @@ namespace ChineseDictionary.Resources.Models
         public static bool operator !=(Character init, string character)
         {
             return !(init == character);
-        }
-
-        protected bool Equals(Character other)
-        {
-            return Number == other.Number && string.Equals(Logograph, other.Logograph) &&
-                   string.Equals(Pronunciation, other.Pronunciation) && Equals(Definitions, other.Definitions) &&
-                   Equals(Usages, other.Usages) && Equals(Phrases, other.Phrases) && Equals(Idioms, other.Idioms);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((Character)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var hashCode = Number;
-                hashCode = (hashCode * 397) ^ (Logograph != null ? Logograph.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Pronunciation != null ? Pronunciation.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Definitions != null ? Definitions.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Usages != null ? Usages.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Phrases != null ? Phrases.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Idioms != null ? Idioms.GetHashCode() : 0);
-                return hashCode;
-            }
-        }
-
-        public bool ShouldSerializeReviewTime()
-        {
-            return false;
         }
     }
 }

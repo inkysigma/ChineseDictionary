@@ -1,16 +1,16 @@
 ﻿{
   "version": "1.0.0",
-  "description": "ChineseDictionary.Migrate Console Application",
+  "description": "EntityFramework.Migrate Console Application",
   "authors": [ "inkyb_000" ],
   "tags": [ "" ],
   "projectUrl": "",
   "licenseUrl": "",
 
   "dependencies": {
+    "System.Linq": "4.0.1-beta-23225"
   },
 
   "commands": {
-    "ChineseDictionary.Migrate": "ChineseDictionary.Migrate"
   },
 
   "frameworks": {

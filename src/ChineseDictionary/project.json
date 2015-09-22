@@ -1,7 +1,9 @@
 {
-  "webroot": "wwwroot",
-  "version": "1.0.0-*",
-
+  "commands": {
+    "web": "Microsoft.AspNet.Hosting --config hosting.ini",
+    "ef": "EntityFramework.Commands",
+    "migrate": "EntityFramework.Migrate"
+  },
   "dependencies": {
     "Microsoft.AspNet.Mvc": "6.0.0-beta7",
     "Microsoft.AspNet.Server.IIS": "1.0.0-beta7",
@@ -15,35 +17,28 @@
     "EntityFramework7.Npgsql": "3.1.0-beta7-1",
 
     "ChineseDictionary.Resources": "1.0.0",
-    "ChineseDictionary.Migrate": "1.0.0"
+    "EntityFramework.Migrate": "1.0.0"
   },
-
-  "scripts": {
-    "prerestore": [ "npm install", "bower install" ],
-    "postrestore": [ "gulp install" ],
-    "prepare": [ "gulp install" ]
-  },
-
-  "commands": {
-    "web": "Microsoft.AspNet.Hosting --config hosting.ini",
-    "ef": "EntityFramework.Commands",
-    "migrate": "ChineseDictionary.Migrate"
-  },
-
-  "frameworks": {
-    "dnx451": { }
-  },
-
   "exclude": [
     "wwwroot",
     "node_modules",
     "bower_components"
   ],
+  "frameworks": {
+    "dnx451": { }
+  },
   "publishExclude": [
     "node_modules",
     "bower_components",
     "**.xproj",
     "**.user",
     "**.vspscc"
-  ]
+  ],
+  "scripts": {
+    "prerestore": [ "npm install", "bower install" ],
+    "postrestore": [ "gulp install" ],
+    "prepare": [ "gulp install" ]
+  },
+  "version": "1.0.0-*",
+  "webroot": "wwwroot"
 }

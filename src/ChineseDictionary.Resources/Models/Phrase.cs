@@ -13,7 +13,7 @@ namespace ChineseDictionary.Resources.Models
 
         public string Pronunciation { get; set; }
 
-        public DateTime ReviewTime { get; set; }
+        public ReviewDateTime ReviewTime { get; set; }
 
         [Key]
         public string Word { get; set; }

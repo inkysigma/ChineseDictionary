@@ -13,7 +13,7 @@ namespace ChineseDictionary.Resources.Models
 
         public string Pronunciation { get; set; }
 
-        public DateTime ReviewTime { get; set; }
+        public ReviewDateTime ReviewTime { get; set; }
 
         [Key]
         public string Word { get; set; }
@@ -25,10 +25,5 @@ namespace ChineseDictionary.Resources.Models
         public virtual ICollection<Usage> Usages { get; set; }
 
         public virtual ICollection<Character> Characters { get; set; }
-
-        public bool Validate()
-        {
-            return string.IsNullOrEmpty(Pronunciation) && string.IsNullOrEmpty(Word) && Definitions.Any();
-        }
     }
 }

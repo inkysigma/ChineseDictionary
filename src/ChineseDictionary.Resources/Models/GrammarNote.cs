@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
 namespace ChineseDictionary.Resources.Models
@@ -7,6 +8,7 @@ namespace ChineseDictionary.Resources.Models
     {
         [JsonIgnore]
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Number { get; set; }
 
         public string Note { get; set; }

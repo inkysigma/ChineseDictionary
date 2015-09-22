@@ -4,6 +4,7 @@ using ChineseDictionary.Models;
 using ChineseDictionary.Resources.Managers;
 using ChineseDictionary.Resources.Models;
 using Microsoft.AspNet.Mvc;
+using ChineseDictionary.Resources.ModelExtentions;
 
 namespace ChineseDictionary.Controllers {
     public class IdiomController : Controller

@@ -1,5 +1,5 @@
-﻿using Microsoft.Data.Entity;
-using ChineseDictionary.Resources.Models;
+﻿using ChineseDictionary.Resources.Models;
+using Microsoft.Data.Entity;
 
 namespace ChineseDictionary.Resources
 {
@@ -15,9 +15,7 @@ namespace ChineseDictionary.Resources
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Character>().Ignore(c => c.ReviewTime);
-            builder.Entity<Idiom>().Ignore(c => c.ReviewTime);
-            builder.Entity<Phrase>().Ignore(c => c.ReviewTime);
+            builder.Entity<ReviewDateTime>().Ignore(c => c.ReviewTime);
         }
     }
 }
