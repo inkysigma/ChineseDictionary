@@ -12,25 +12,27 @@ namespace ChineseDictionary
     public class Startup
     {
         public IConfiguration Configuration { get; set; }
+        public IApplicationEnvironment ApplicationEnvironment { get; set; }
         public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
         {
             var config = new ConfigurationBuilder(appEnv.ApplicationBasePath)
                 .AddJsonFile("config.json")
                 .AddEnvironmentVariables();
             Configuration = config.Build();
+            ApplicationEnvironment = appEnv;
         }
 
         // This method gets called by a runtime.
         // Use this method to add services to the container
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc();           
 
             services.AddEntityFramework()
-                .AddNpgsql()
-                .AddDbContext<DictionaryContext>(options =>
+                .AddSqlite()
+                .AddDbContext<DictionaryContext>(c =>
                 {
-                    options.UseNpgsql(Configuration["Data:ConnectionStrings:Postgres"]);
+                    c.UseSqlite($"Data Source={ApplicationEnvironment.ApplicationBasePath}/{Configuration["Data:ConnectionStrings:Sqlite"]};");
                 });
 
             services.AddTransient<ICharacterManager, CharacterManager>(collection => new CharacterManager(

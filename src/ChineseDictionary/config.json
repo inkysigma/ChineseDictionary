@@ -2,7 +2,8 @@
   "Data": {
     "DefaultConnection": "Server=localhost;Database=chinese;Uid=public;Pwd=public;",
     "ConnectionStrings": {
-      "postgres": "Server=localhost;Database=chinese;User Id=default;Password=public"
+      "postgres": "Server=localhost;Database=chinese;User Id=default;Password=public",
+      "Sqlite": "chinese.db"
     }
   }
 }

@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-#if DNX451
-using System.Diagnostics;
-#endif
-
 namespace EntityFramework.Migrate
 {
     public class Program
@@ -21,6 +17,7 @@ namespace EntityFramework.Migrate
             if (string.IsNullOrEmpty(List.Main))
             {
                 Console.WriteLine("No file specified");
+                return;
             }
 
             Console.WriteLine("Migrating to temp/" + List.Main);
@@ -49,7 +46,7 @@ namespace EntityFramework.Migrate
 
             text.Insert(text.Count - 2, "\t\tprotected override void OnConfiguring(DbContextOptionsBuilder builder)");
             text.Insert(text.Count - 2, "\t\t{");
-            text.Insert(text.Count - 2, "\t\t\tbuilder.UseNpgsql(\"Server=localhost;Database=chinese;User Id=default;Password=public\");");
+            text.Insert(text.Count - 2, "\t\t\tbuilder.UseSqlite(\"Data Source=C:\\chinese.db;Version=3;New=True\");");
             text.Insert(text.Count - 2, "\t\t}");
             var writer = new StreamWriter("temp/DictionaryContext.cs");
             foreach (var t in text)

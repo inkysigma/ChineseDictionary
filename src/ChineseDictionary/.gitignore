@@ -2,3 +2,4 @@ bower_components/
 wwwroot/lib/
 temp/
 Migrations/
+chinese.db
