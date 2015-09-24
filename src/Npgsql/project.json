@@ -1,0 +1,34 @@
+﻿{
+  "version": "3.1.0-alpha2",
+  "authors": [
+    "Shay Rojansky",
+    "Emil Lenngren",
+    "Francisco Figueiredo Jr.",
+    "Kenji Uno",
+    "Jon Asher",
+    "Josh Cooley",
+    "Federico Di Gregorio",
+    "Jon Hanna",
+    "Chris Morgan",
+    "Dave Page",
+    "Glen Parker",
+    "Brar Piening",
+    "Hiroshi Saito"
+  ],
+  "description" : "Npgsql is a .NET data provider for PostgreSQL, 100% implemented in C# code. PostgreSQL 9.x and above is officially supported, other versions may work.",
+  "compilationOptions": {
+    "define": [ "DNX", "__MonoCS__" ]
+  },
+  "frameworks": {
+    "dnx452": {
+      "frameworkAssemblies": {
+        "System.Diagnostics.Contracts": "4.0.0.0",
+        "System.Transactions": "4.0.0.0",
+        "System.DirectoryServices": "4.0.0.0",
+        "System.Data": "4.0.0.0",
+        "System.Numerics": "4.0.0.0",
+        "System.Xml": "4.0.0.0"
+      }
+    }
+  }
+}
